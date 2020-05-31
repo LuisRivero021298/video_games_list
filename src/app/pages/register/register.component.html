@@ -1,0 +1,6 @@
+<div class="register">
+	<h1 class="center">Welcome, {{page.title}}</h1>
+	<div class="row form-sing-in">
+    <app-form [page]="page" [user]="user" (vForm)="registerNew($event)" ></app-form>
+  </div>
+</div>

@@ -1,0 +1,119 @@
+<form class="col s12" [formGroup]="form" (ngSubmit)="validateForm()">
+	<div class="row">
+		
+    <div 
+      class="input-field col s6"
+      [ngClass]="{'input-invalid': usernameInvalid }" 
+      *ngIf="page.page === 'register'" 
+    >
+    	<i class="material-icons prefix tiny">account_circle</i>
+      <input 
+      	id="username" 
+      	type="text" 
+				formControlName="username"
+      >
+      <label 
+        for="username" 
+        *ngIf="!usernameInvalid" 
+        [ngClass]="{'active': usernameEmpty}">Username</label>
+
+      <label for="username" *ngIf="usernameInvalid" class="active">Enter a valid Username</label>
+  	</div>
+
+  	<div 
+      class="input-field col" 
+      [ngClass]="{
+        's6': page.page === 'register', 
+        's12': page.page === 'login',
+        'input-invalid': emailInvalid
+      }"
+    >
+  		<i class="material-icons prefix tiny">email</i>
+      <input 
+      	id="email" 
+      	type="text"
+				formControlName="email"
+      >
+      <label 
+        for="email" 
+        *ngIf="!emailInvalid" 
+        [ngClass]="{'active': emailEmpty}">Email</label>
+
+      <label for="email" *ngIf="emailInvalid" class="active">Enter a valid Email</label>
+  	</div>
+
+    <div 
+      class="input-field col s6"
+      [ngClass]="{
+        's6': page.page === 'register', 
+        's12': page.page === 'login',
+        'input-invalid': passwordInvalid
+      }"
+    >
+    	<i class="material-icons prefix tiny">lock</i>
+      <input 
+      	id="password" 
+      	type="password" 
+				formControlName="password"
+      >
+      <label 
+        for="password" 
+        *ngIf="!passwordInvalid" 
+        [ngClass]="{'active': passwordEmpty}">Password</label>
+
+      <label for="password" *ngIf="passwordInvalid" class="active">Enter a valid Password</label>
+    </div>
+		
+		<div 
+      class="input-field col s6" 
+      *ngIf="page.page === 'register'"
+      [ngClass]="{'input-invalid': birthdateInvalid}"
+    >
+			<i class="material-icons prefix tiny">insert_invitation</i>
+	    <input type="text" class="datepicker" id="birthdate" formControlName="birthdate">	
+      <label 
+        for="bithdate" 
+        *ngIf="!birthdateInvalid" 
+        [ngClass]="{'active': birthdateEmpty}">Birthdate: yyyy/mm/dd</label>
+
+      <label for="birthdate" *ngIf="birthdateInvalid" class="active">Enter a valid Birthdate</label>
+		</div>
+
+		<div class="file-field input-field col s12" *ngIf="page.page === 'register'">
+      <div class="btn waves-effect waves-light btn-file">
+        <i class="material-icons">photo_library</i>
+        <input type="file" formControlName="photo">
+      </div>
+      <div class="file-path-wrapper">
+        <input class="file-path" type="text" >
+      </div>
+    </div>
+
+	</div>
+	<div class="input-field s12">
+		<button type="submit" class="btn waves-effect waves-light btn-session red darken-4">
+			Sing in
+		</button>
+	</div>
+	<div >
+    <div class="contact100-form-checkbox" *ngIf="page.page === 'login'">
+      <p>
+        <label>
+          <input 
+            id="remember" 
+            type="checkbox" 
+            name="remember" 
+            formControlName="remember"
+          />
+          <span>Remember user</span>
+        </label>
+      </p>
+    </div>
+    <a routerLink="/login" class="txt1" *ngIf="page.page === 'register'">
+      You do have an account? / Log in
+    </a>
+    <a routerLink="/register" class="txt1" *ngIf="page.page === 'login'">
+      You don't have an account? / Sign up
+    </a>
+  </div>
+</form>
