@@ -1,6 +1,9 @@
+<div class="login-wrapper-background">
+	<img src="assets/images/collage.jpg" alt="background">
+</div>
 <div class="login">
-	<h1 class="center">Welcome, enter here</h1>
-	<div class="row form-sing-in">
-    <app-form [page]="page" [user]="user" (vForm)="login($event)"></app-form>
+	<h1 class="center">Login</h1>
+	<div class="form-sing-in">
+    <app-form [page]="page" [user]="user" (vForm)="login($event)" [screenSize]="screenSize"></app-form>
   </div>
 </div>

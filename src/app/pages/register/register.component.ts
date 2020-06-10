@@ -11,13 +11,11 @@ import { UserModel } from '../../models/user.model';
 })
 export class RegisterComponent implements OnInit {
 	page : Page;
-  rememberUser: boolean = false;
-  user: UserModel = {
-    username: 'luisda021298',
-    email: 'luisda021298@gmail.com',
-    password: '123123123',
-    birthdate: '2020/03/03',
-    photo: ''
+  rememberUser: boolean = false
+  user: UserModel
+  screenSize = {
+    screenWidth: 0,
+    screenHeigth: 0
   }
 
   constructor(
@@ -30,43 +28,54 @@ export class RegisterComponent implements OnInit {
   		page: 'register',
       rememberUser: false
   	}
+    this.user = new UserModel();
   }
 
   ngOnInit(): void {
+    this.screenSize.screenWidth = screen.width;
+    this.screenSize.screenHeigth = screen.height;
   }
 
   registerNew( vForm: UserModel ) {
-      this.user = vForm;
-      this.user.photo = this.getFile(vForm);
+    this.user = vForm;
+    this.user.photo = this.getFile(vForm);
+    this.user.birthdate = this.formatDate(this.user.birthdate);
+    
 
-      console.log(this.user);
-      
-      //this._alert.loadingMessage('Wait a moment please');
+    //this._alert.loadingMessage('Wait a moment please');
 
-      this._auth.newUser(this.user).subscribe( 
-        (data:any) => {
-          console.log(data);
-          //this._alert.closeAlert();
-          this.rememberUser = true;
-          this.rememberUsers();
-          this._router.navigate(['/home']);
-        },
-        (err: any) => {
-          console.log(err);
-          //this._alert.errorMessage(err, 'Failed to authenticate');
-      });
-    }
+    this._auth.newUser(this.user).subscribe( 
+      (data:any) => {
+        console.log(data);
+        //this._alert.closeAlert();
+        this.rememberUser = true;
+        this.rememberUsers();
+        this._router.navigate(['/home']);
+      },
+      (err: any) => {
+        alert('Error: '+err)
+        console.log(err)
+        //this._alert.errorMessage(err, 'Failed to authenticate');
+    });
+  }
 
-    rememberUsers() {
-      if ( this.rememberUser ) {
-        localStorage.setItem('email', this.user.email);
-      } 
-    }
+  rememberUsers() {
+    if ( this.rememberUser ) {
+      localStorage.setItem('email', this.user.email);
+    } 
+  }
 
-    private getFile(vForm: UserModel) {
-      let largeUrl = vForm.photo;
-      let file = largeUrl.split("\\");
-      let fileName = file[2];
-      return fileName;
-    }
+  private getFile(vForm: UserModel) {
+    let largeUrl = vForm.photo;
+    let file = largeUrl.split("\\");
+    let fileName = file[2];
+    return fileName;
+  }
+
+  private formatDate(date) {
+    let formatDate = '';
+    formatDate = Object.values(date).join('-');
+
+    return formatDate;
+  }
 }

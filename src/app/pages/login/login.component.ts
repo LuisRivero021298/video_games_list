@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Page } from '../../interfaces/Page.interface';
 import { Router } from '@angular/router';
+import { Login } from '../../interfaces/Login.interface';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -9,10 +10,11 @@ import { AuthService } from '../../services/auth.service';
   styles: []
 })
 export class LoginComponent implements OnInit {
-	page: Page;
-  user = {
-    email: '',
-    password: '',
+	page: Page
+  user: Login
+  screenSize = {
+    screenWidth: 0,
+    screenHeigth: 0
   }
 
   constructor( 
@@ -25,19 +27,20 @@ export class LoginComponent implements OnInit {
   		page: 'login',
   		rememberUser: false
   	}
+    this.user = { email: '', password: '' }
   }
 
   ngOnInit(): void {
+    this.screenSize.screenWidth = screen.width;
+    this.screenSize.screenHeigth = screen.height;
+    
     if (localStorage.getItem('email')) {
       this.user.email = localStorage.getItem('email');
       this.page.rememberUser = true;
     }
-    console.log(this.user);
   }
 
-  login(vForm){
-    console.log(vForm);
-
+  login(vForm) {
     this.user.email = vForm.email;
     this.user.password = vForm.password;
     this.page.rememberUser = vForm.remember;

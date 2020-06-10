@@ -1,119 +1,162 @@
-<form class="col s12" [formGroup]="form" (ngSubmit)="validateForm()">
-	<div class="row">
-		
-    <div 
-      class="input-field col s6"
-      [ngClass]="{'input-invalid': usernameInvalid }" 
-      *ngIf="page.page === 'register'" 
-    >
-    	<i class="material-icons prefix tiny">account_circle</i>
+<form class="container needs-validation" novalidate [formGroup]="form" (ngSubmit)="validateForm()">
+	
+  <div 
+    class="form-group row"
+    *ngIf="page.page === 'register'" 
+  >
+    <div class="col">
       <input 
+        class="form-control form-control-lg" 
       	id="username" 
       	type="text" 
 				formControlName="username"
+        placeholder="Username"
+        [class.is-invalid]="usernameInvalid" 
+        [class.form-control-lg] = "
+          screenSize.screenWidth >= 350 &&
+          screenSize.screenWidth < 740 &&
+          screenSize.screenHeigth > 700
+        "
       >
-      <label 
-        for="username" 
-        *ngIf="!usernameInvalid" 
-        [ngClass]="{'active': usernameEmpty}">Username</label>
+      <small *ngIf="usernameInvalid" class="text-danger">
+              Enter a valid Username
+      </small>
+    </div>
+    
+	</div> <!-- USERNAME !-->
 
-      <label for="username" *ngIf="usernameInvalid" class="active">Enter a valid Username</label>
-  	</div>
-
-  	<div 
-      class="input-field col" 
-      [ngClass]="{
-        's6': page.page === 'register', 
-        's12': page.page === 'login',
-        'input-invalid': emailInvalid
-      }"
-    >
-  		<i class="material-icons prefix tiny">email</i>
+	<div 
+    class="form-group row" 
+  > 
+    <div class="col">
       <input 
-      	id="email" 
-      	type="text"
-				formControlName="email"
+        class="form-control" 
+        id="email" 
+        type="text"
+        formControlName="email"
+        placeholder="Email" 
+        [class.is-invalid]="emailInvalid"
+        [class.form-control-lg] = "
+          screenSize.screenWidth >= 350 &&
+          screenSize.screenWidth < 740 &&
+          screenSize.screenHeigth > 630
+        "
       >
-      <label 
-        for="email" 
-        *ngIf="!emailInvalid" 
-        [ngClass]="{'active': emailEmpty}">Email</label>
+      <small *ngIf="emailInvalid" class="text-danger">
+              Enter a valid Email
+      </small>
+    </div>
+	</div> <!-- Email !-->
 
-      <label for="email" *ngIf="emailInvalid" class="active">Enter a valid Email</label>
-  	</div>
-
-    <div 
-      class="input-field col s6"
-      [ngClass]="{
-        's6': page.page === 'register', 
-        's12': page.page === 'login',
-        'input-invalid': passwordInvalid
-      }"
-    >
-    	<i class="material-icons prefix tiny">lock</i>
+  <div 
+    class="form-group row"
+  >
+    <div class="col">
       <input 
+        class="form-control" 
       	id="password" 
       	type="password" 
 				formControlName="password"
+        placeholder="Password" 
+        [class.is-invalid]="passwordInvalid"
+        [class.form-control-lg] = "
+          screenSize.screenWidth >= 350 &&
+          screenSize.screenWidth < 740 &&
+          screenSize.screenHeigth > 630
+        "
       >
-      <label 
-        for="password" 
-        *ngIf="!passwordInvalid" 
-        [ngClass]="{'active': passwordEmpty}">Password</label>
-
-      <label for="password" *ngIf="passwordInvalid" class="active">Enter a valid Password</label>
+      <small *ngIf="passwordInvalid" class="text-danger">
+              Enter a valid Password
+      </small>
     </div>
-		
-		<div 
-      class="input-field col s6" 
-      *ngIf="page.page === 'register'"
-      [ngClass]="{'input-invalid': birthdateInvalid}"
-    >
-			<i class="material-icons prefix tiny">insert_invitation</i>
-	    <input type="text" class="datepicker" id="birthdate" formControlName="birthdate">	
-      <label 
-        for="bithdate" 
-        *ngIf="!birthdateInvalid" 
-        [ngClass]="{'active': birthdateEmpty}">Birthdate: yyyy/mm/dd</label>
+  </div> <!-- Password !-->
+	 
 
-      <label for="birthdate" *ngIf="birthdateInvalid" class="active">Enter a valid Birthdate</label>
-		</div>
-
-		<div class="file-field input-field col s12" *ngIf="page.page === 'register'">
-      <div class="btn waves-effect waves-light btn-file">
-        <i class="material-icons">photo_library</i>
-        <input type="file" formControlName="photo">
+	<div 
+    class="form-group row" 
+    *ngIf="page.page === 'register'"
+  >
+    <div class="input-group col">
+      <input 
+        class="form-control form-control-lg" 
+        placeholder="Birthdate"
+        name="birthdate"  
+        ngbDatepicker 
+        #d="ngbDatepicker"
+        formControlName="birthdate"
+        [class.is-invalid]="birthdateInvalid"
+        [class.form-control-lg] = "
+          screenSize.screenWidth >= 350 &&
+          screenSize.screenWidth < 740 &&
+          screenSize.screenHeigth > 630
+        "
+      >
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+          <i class="material-icons small">calendar_today</i>
+        </button>
       </div>
-      <div class="file-path-wrapper">
-        <input class="file-path" type="text" >
-      </div>
+      <small *ngIf="birthdateInvalid" class="text-danger">
+              Enter a valid birthdate
+      </small>
     </div>
+	</div> <!-- Birthdate !-->
 
-	</div>
-	<div class="input-field s12">
-		<button type="submit" class="btn waves-effect waves-light btn-session red darken-4">
-			Sing in
-		</button>
-	</div>
-	<div >
-    <div class="contact100-form-checkbox" *ngIf="page.page === 'login'">
-      <p>
-        <label>
-          <input 
-            id="remember" 
-            type="checkbox" 
-            name="remember" 
-            formControlName="remember"
-          />
-          <span>Remember user</span>
-        </label>
-      </p>
+  <div 
+    class="form-group custom-file" 
+    *ngIf="page.page === 'register'"
+    [class.form-control-lg] = "
+      screenSize.screenWidth >= 350 &&
+      screenSize.screenWidth < 740 &&
+      screenSize.screenHeigth > 630
+    "
+  >
+    <input 
+      type="file" 
+      class="custom-file-input" 
+      id="customFile" 
+      formControlName="photo"
+    > 
+    <label class="custom-file-label" for="customFile">Choose photo</label>
+  </div> <!-- file !-->
+
+	<div class="form-group row">
+    <div class="col">
+  		<button
+        *ngIf="page.page === 'login'" 
+        type="submit" 
+        class="btn btn-primary btn-session"
+      >
+  			Sing in
+  		</button>
+      <button
+        *ngIf="page.page === 'register'" 
+        type="submit" 
+        class="btn btn-primary btn-session"
+      >
+        Register
+      </button>
     </div>
-    <a routerLink="/login" class="txt1" *ngIf="page.page === 'register'">
+	</div><!-- Button !-->
+
+	<div class="form-group">
+    <div class="form-check" *ngIf="page.page === 'login'">
+      <input 
+        id="remember"  
+        name="remember" 
+        formControlName="remember"
+        class="form-check-input" 
+        type="checkbox" 
+      >
+      <label class="form-check-label" for="inlineRadio2">Remember</label>
+    </div>
+    
+    <a routerLink="/login" class="txt1 center" *ngIf="page.page === 'register'">
       You do have an account? / Log in
     </a>
-    <a routerLink="/register" class="txt1" *ngIf="page.page === 'login'">
+    <a routerLink="/register" class="txt1 center" *ngIf="page.page === 'login'">
       You don't have an account? / Sign up
     </a>
   </div>
+
 </form>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import M  from 'materialize-css';
+import { AuthService } from '../../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -8,11 +9,18 @@ import M  from 'materialize-css';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  constructor( 
+  	private _auth: AuthService,
+  	private _router: Router 
+  ) { }
 
   ngOnInit(): void {
-  	var elems = document.querySelectorAll('.sidenav');
-    var instances = M.Sidenav.init(elems);
+  	
+  }
+
+  signOut(){
+  	this._auth.logOut();
+  	this._router.navigateByUrl('/login');
   }
 
 }

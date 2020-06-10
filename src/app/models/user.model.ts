@@ -4,7 +4,4 @@ export class UserModel {
 	password: string;
 	photo: string;
 	birthdate: string;
-
-	constructor(){
-	}
 }
