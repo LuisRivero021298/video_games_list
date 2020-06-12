@@ -16,6 +16,14 @@ export class AuthService {
     this.readToken();
   }
 
+  getUser(idUser: string) {
+    let token = this.readToken();
+    console.log(token);
+    let headers = new HttpHeaders().set('x-access-token', idUser);
+    return this._http.get<any>(this.url+'/profile', { headers });
+
+  }
+
   newUser(newUser: UserModel): Observable<any> {
   	let newU = JSON.stringify(newUser);
   	let headers = new HttpHeaders().set('Content-Type', 'application/json');

@@ -28,7 +28,7 @@ export class RegisterComponent implements OnInit {
   		page: 'register',
       rememberUser: false
   	}
-    this.user = new UserModel();
+    this.user = new UserModel({});
   }
 
   ngOnInit(): void {

@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ChartsModule } from 'ng2-charts';
 
 //routes
 import { AppRoutingModule } from './app-routing.module';
@@ -16,6 +17,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { FormComponent } from './components/form/form.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ChartComponent } from './components/chart/chart.component';
 
 @NgModule({
   declarations: [
@@ -26,12 +28,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NavbarComponent,
     LoginComponent,
     RegisterComponent,
-    FormComponent
+    FormComponent,
+    ChartComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    ChartsModule,
     AppRoutingModule,
     HttpClientModule,
     NgbModule

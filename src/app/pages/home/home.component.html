@@ -1,22 +1,64 @@
 <app-navbar></app-navbar>
 <div class="home-user">
-	<div class="banner">
-		<h1>username</h1>
-	</div>
-	<div class="body-home">
-		<div class="sidebar-home">
-			<div class="img-home">
-				<img src="" alt="">
+	<div class="home-header">
+		<div class="banner">
+			<h1>{{ profile.username }}</h1>
+		</div>
+		<div class="base-profile">
+			<div class="profile">
+				<div class="photo-profile">
+					<img src="" alt="">
+				</div>
 			</div>
-			<ul>
-				<li>username</li>
-				<li>large name</li>
-				<li>email</li>
-				<li>email</li>
-			</ul>
 		</div>
-		<div class="info-home">
-			<h3>list</h3>
+
+		<ul class="information-profile">
+			<li class="name-profile">Username: {{ profile.username }}</li>
+			<li class="email-profile">Email: {{ profile.email }}</li>
+			<li class="age-profile">Age: {{ profile.birthdate }}</li>
+		</ul>
+	</div> <!-- end home-header-->
+
+	<div class="home-lists">
+		<div class="recent-list">
+			<table class="table table-sm table-dark">
+				<thead>
+					<tr>
+						<th scope="col">Recent list</th>
+						<th scope="col"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Last list</td>
+						<td>icons</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
-	</div>
+		<div class="lists">
+			<table class="table table-sm table-dark">
+				<thead>
+					<tr>
+						<th scope="col">All list</th>
+						<th scope="col"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Test list</td>
+						<td>icons</td>
+					</tr>
+					<tr>
+						<td>Test list</td>
+						<td>icons</td>
+					</tr>
+				</tbody>
+			</table>			
+		</div>
+	</div> <!-- end home-lists-->
+
+	<div class="home-charts">
+		<app-chart></app-chart>	
+	</div><!-- end home-charts-->
 </div>
