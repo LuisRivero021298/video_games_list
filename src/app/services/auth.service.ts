@@ -18,9 +18,13 @@ export class AuthService {
 
   getUser(idUser: string) {
     let token = this.readToken();
-    console.log(token);
     let headers = new HttpHeaders().set('x-access-token', idUser);
-    return this._http.get<any>(this.url+'/profile', { headers });
+    return this._http.get<any>(this.url+'/profile', { headers }
+    ).pipe(
+      map(resp => {
+        return resp.data.response[0];
+      })
+    );
 
   }
 
@@ -31,11 +35,10 @@ export class AuthService {
   	return this._http.post<any>(
       this.url+'/register', newU, { headers }
     ).pipe(
-     map( resp => {
-       console.log('enter in map')
-       this.saveToken(resp.data)
-       return resp
-     })
+      map( resp => {
+        this.saveToken(resp.data.token, resp.data.expireIn);
+        return resp;
+      })
     );
   }
 
@@ -46,15 +49,16 @@ export class AuthService {
       this.url+'/signin', log, { headers }
     ).pipe(
       map( resp => {
-        console.log('enter in map')
-        this.saveToken(resp.data)
-        return resp
+        console.log(resp.data);
+        this.saveToken(resp.data.token, resp.data.expireIn);
+        return resp;
       })
     );
   }
 
   logOut() {
     localStorage.removeItem('token');
+    localStorage.removeItem('expireIn');
   }
   
   readToken() {
@@ -63,17 +67,34 @@ export class AuthService {
   }
 
   isAuthenticated() : boolean {
-    return (this.userToken !== null && this.userToken !== undefined) ? true : false
+    if (this.userToken === null || this.userToken === undefined) {
+      return false;
+    }
+
+    return this.expiredToken();
   }
 
-  private saveToken(idToken:string) {
+  private expiredToken(): boolean {
+    const expire = Number(localStorage.getItem('expireIn'));
+    const expireDate = new Date();
+    expireDate.setTime(expire);
+
+    if (expireDate > new Date()) {
+      return true;
+    } else {
+      this.logOut();
+      return false;
+    } 
+  }
+
+  private saveToken(idToken:string, expireIn: number) {
  		this.userToken = idToken;
  		localStorage.setItem('token', idToken);
 
- 		//this.saveTokenExpires(expireIn);
+ 		this.tokenExpireIn(expireIn);
  	}
 
- 	private saveTokenExpires(expireIn:number) {
+ 	private tokenExpireIn(expireIn:number) {
  		let today = new Date();
  		today.setSeconds(expireIn);
  		localStorage.setItem('expireIn', today.getTime().toString());

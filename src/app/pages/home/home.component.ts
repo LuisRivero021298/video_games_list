@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   	const token = this._auth.readToken();
   	this._auth.getUser(token).subscribe(
   		resp => {
-  			this.profile = resp.data[0];
+  			this.profile = resp;
   		},
   		err => {
   			console.log(err);
