@@ -17,9 +17,9 @@
 		</div>
 
 		<ul class="information-profile">
-			<li class="name-profile">Username: {{ profile.username }}</li>
-			<li class="email-profile">Email: {{ profile.email }}</li>
-			<li class="age-profile">Age: {{ profile.birthdate }}</li>
+			<li class="name-profile">{{ profile.username }}</li>
+			<li class="email-profile">{{ profile.email }}</li>
+			<li class="age-profile">{{ profile.birthdate | age}}</li>
 		</ul>
 	</div> <!-- end home-header-->
 

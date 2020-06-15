@@ -53,8 +53,8 @@ export class RegisterComponent implements OnInit {
         this._router.navigate(['/home']);
       },
       (err: any) => {
-        alert('Error: '+err)
-        console.log(err)
+        //alert('Error: '+err)
+        console.log(err);
         //this._alert.errorMessage(err, 'Failed to authenticate');
     });
   }

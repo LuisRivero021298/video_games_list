@@ -7,6 +7,9 @@ import { ChartsModule } from 'ng2-charts';
 //routes
 import { AppRoutingModule } from './app-routing.module';
 
+//pipes
+import { AgePipe } from './pipes/age.pipe';
+
 //components and pages
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -21,6 +24,7 @@ import { ChartComponent } from './components/chart/chart.component';
 
 @NgModule({
   declarations: [
+    AgePipe,
     AppComponent,
     HomeComponent,
     ListComponent,
