@@ -36,12 +36,30 @@ body {
 	width: 100%;
 }
 .navbar {
-	height: 60px;
+	min-height: 60px;
  	position: fixed;
 	z-index: 100;
 	width: 100%;
 	top: 0;
 	left: 0;
+	display: grid;
+	grid-template-columns: 100px 1fr 100px;
+	padding: .5rem 1.2rem;
+}
+.btd{
+	display: flex;
+	align-items: center;
+	justify-content: left;
+}
+.btn-theme {
+	height: 30px;
+	width: 30px;
+}
+.brd{
+	text-align: right;
+}
+.navbar-brand{
+	margin: 0 !important;
 }
 nav.bg-dark{
 	background-color: rgba(39, 39, 39, 1) !important;
@@ -137,7 +155,6 @@ nav.bg-dark a{
 	display: grid;
 	grid-template-areas: "home-header"
 											 "home-lists";
-	grid-template-rows: minmax(1fr, 350px) 1fr;
 	max-width: 90%;
 	margin: 90px auto 30px auto; 
 }
@@ -248,11 +265,43 @@ nav.bg-dark a{
 	color: var(--main-color-text);
 	margin-bottom: 0 !important;
 }
-
+.btn-add-list{
+	display: inline-block;
+	width: 60px;
+	height: 60px;
+	background-color: #7454C9;
+	border-radius: 100%;
+	position: fixed;
+	right: 10px;
+	bottom: 20px;
+}
+.btn-add-list button{
+	border-radius: 100%;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
 /*Footer*/
 footer{
 	background-color: rgba(0,0,0,0.75);
 }
+
+/* Rules for sizing the icon. */
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-30 { width: 30px; height: 30px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+/* Rules for using icons as black on a light background. */
+.material-icons.md-dark { fill: rgba(0, 0, 0, 0.54); }
+.material-icons.md-dark.md-inactive { fill: rgba(0, 0, 0, 0.26); }
+
+/* Rules for using icons as white on a dark background. */
+.material-icons.md-light { fill: var(--main-color-text); }
+.material-icons.md-light.md-inactive { fill: rgba(255, 255, 255, 0.3); }
 
 @media only screen and (min-width: 360px) {
 	.approot{
