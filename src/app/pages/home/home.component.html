@@ -19,50 +19,26 @@
 		<ul class="information-profile">
 			<li class="name-profile">{{ profile.username }}</li>
 			<li class="email-profile">{{ profile.email }}</li>
-			<li class="age-profile">{{ profile.birthdate | age}}</li>
+			<li class="age-profile">{{ profile.birthdate | age}} year old</li>
 		</ul>
+    <button type="button" class="btn btn-primary btn-large">
+      Edit Profile
+    </button>
+    <hr class="my-4">
 	</div> <!-- end home-header-->
 
 	<div class="home-lists">
-		<div class="recent-list">
-			<table class="table table-sm table-dark">
-				<thead>
-					<tr>
-						<th scope="col">Recent list</th>
-						<th scope="col"></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>Last list</td>
-						<td>icons</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<div class="lists">
-			<table class="table table-sm table-dark">
-				<thead>
-					<tr>
-						<th scope="col">All list</th>
-						<th scope="col"></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>Test list</td>
-						<td>icons</td>
-					</tr>
-					<tr>
-						<td>Test list</td>
-						<td>icons</td>
-					</tr>
-				</tbody>
-			</table>			
-		</div>
-	</div> <!-- end home-lists-->
+	  <div class="list">
+      <div class="cover-content">
+       
+      </div>
+      <div class="cover-shadow">
+        <a class="link-list" href="#"></a>
+        <div class="name-list">
+          <h4>Name List </h4>
+        </div>
+      </div>
+    </div>
+  </div> <!-- end home-lists-->
 
-	<div class="home-charts">
-		<app-chart></app-chart>	
-	</div><!-- end home-charts-->
 </div>
