@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { AuthService } from "../../services/auth.service";
 import { UserModel } from "../../models/user.model";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-home",
@@ -10,7 +11,10 @@ import { UserModel } from "../../models/user.model";
 export class HomeComponent implements OnInit {
   profile: UserModel;
 
-  constructor(private _auth: AuthService) {
+  constructor(
+    private _auth: AuthService,
+    private _router: Router
+  ) {
     this.profile = new UserModel({
       username: "patricia123",
       email: "patricia123@gmail.com",
@@ -34,5 +38,9 @@ export class HomeComponent implements OnInit {
         console.log(err);
       }
     );
+  }
+
+  goEditProfile(){
+    this._router.navigateByUrl("/edit-profile");
   }
 }

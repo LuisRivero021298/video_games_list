@@ -21,6 +21,8 @@ import { RegisterComponent } from './pages/register/register.component';
 import { FormComponent } from './components/form/form.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ChartComponent } from './components/chart/chart.component';
+import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
+import { RatingComponent } from './pages/rating/rating.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { ChartComponent } from './components/chart/chart.component';
     LoginComponent,
     RegisterComponent,
     FormComponent,
-    ChartComponent
+    ChartComponent,
+    EditProfileComponent,
+    RatingComponent
   ],
   imports: [
     BrowserModule,

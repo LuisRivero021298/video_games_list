@@ -232,7 +232,9 @@ nav.bg-dark a{
 }
 
 /*Home*/
-.home-user, .list-user{
+.home-user, 
+.list-user,
+.edit-profile{
 	display: grid;
 	grid-template-areas: "header"
 											 "body";
@@ -307,10 +309,12 @@ nav.bg-dark a{
 }
 
 /*List User*/
-.list-user{
+.list-user,
+.edit-profile{
  margin: 30px auto;
 }
-.list-header {
+.list-header,
+.edit-header {
 	display: grid;
 	grid-area: "bcd"
 						 "nm";
