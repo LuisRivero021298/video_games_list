@@ -18,6 +18,21 @@ body {
 	display: grid;
 	grid-template-rows: 1fr 100px;
 }
+/*Texts*/
+.center {
+	display: block;
+	text-align: center;
+}
+.title-primary {
+	margin: 0;
+	font-size: 48px;
+	color: var(--main-color-text) !important;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/*Buttons*/
 .btn{
 	border-radius: 10px;
 	min-height: 45px;
@@ -35,6 +50,81 @@ body {
 .btn-large {
 	width: 100%;
 }
+.btn-add{
+	display: inline-block;
+	width: 60px;
+	height: 60px;
+	background-color: #7454C9;
+	position: fixed;
+	right: 10px;
+	bottom: 20px;
+}
+.btn-add button{
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.btn-circle {
+	border-radius: 100%;
+}
+
+/* Boxes */
+.cover-content{
+	border-radius: 20px;
+	height: 100%;
+	left:0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	background: #444;
+}
+.cover-content img{
+	border-radius: 20px;
+}
+.cover-shadow{
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: flex;
+	width: 100%;
+	border-radius: 20px;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	flex-direction: column;
+	height: 100%;
+	color: var(--main-color-text);
+}
+.cover-shadow .link-list,
+.cover-shadow .link-game{
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	border-radius: 20px;
+}
+.cover-shadow .name-list,
+.cover-shadow .name-game {
+	background: linear-gradient(to top, transparent 0%, rgba(0, 0, 0, 0.75) 81%);
+	display: flex;
+  flex-wrap: nowrap;
+  pointer-events: none;
+  position: relative;
+  width: 100%;
+  padding: 15px;
+  border-radius: 20px 20px 0 0;
+  flex-shrink: 0;
+}
+.cover-shadow .name-list h4,
+.cover-shadow .name-game h4{
+	font-size: 18px;
+	color: var(--main-color-text);
+	margin-bottom: 0 !important;
+}
+
+/* NAV */
 .navbar {
 	min-height: 60px;
  	position: fixed;
@@ -71,10 +161,7 @@ nav.bg-dark a{
 	min-height: 490px;
 	overflow: auto;
 }
-.center {
-	display: block;
-	text-align: center;
-}
+
 .img {
 	display: inline-block;
 	vertical-align: top;
@@ -86,10 +173,10 @@ nav.bg-dark a{
 	-webkit-background-size: cover;
   -moz-background-size: cover;
 	-o-background-size: cover;
+	height: 100%;
+	width: 100%;
 }
 .circular-img {
-	height: 100%;
-	width: 100% ;
 	border-radius: 100%;
 }
 
@@ -103,13 +190,7 @@ nav.bg-dark a{
 	display: grid;
 	grid-template-rows: 150px 1fr; 
 }
-.login h1, .register h1 {
-	margin: 0;
-	color: var(--main-color-text) !important;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
+
 .form-group {
 	margin-bottom: 20px;
 }
@@ -122,7 +203,7 @@ nav.bg-dark a{
 	border-radius: 10px;
 }
 .form-sing-in input:focus{
-	boder-color: #80bdff;
+	border-color: #80bdff;
 } 
 .form-sing-in .calendar,
 .form-sing-in .custom-file-label::after {
@@ -151,15 +232,15 @@ nav.bg-dark a{
 }
 
 /*Home*/
-.home-user{
+.home-user, .list-user{
 	display: grid;
-	grid-template-areas: "home-header"
-											 "home-lists";
+	grid-template-areas: "header"
+											 "body";
 	max-width: 90%;
 	margin: 90px auto 30px auto; 
 }
 .home-header{
-	grid-area: home-header;
+	grid-area: header;
 	text-align: center;
 }
 .home-header .banner {
@@ -208,80 +289,41 @@ nav.bg-dark a{
 	font-weight: bold;
 }
 .my-4 {
-	border-top: 1.5px solid #242424;
+	border-top: 2.5px solid #262626;
 }
 .home-lists {
-	grid-area: home-lists;
+	margin: 0 auto;
+	grid-area: body;
+	display: grid;
+	grid-gap: 15px;
+	grid-template-columns: repeat(auto-fill, minmax(auto,350px));
 }
 .home-lists .list{
 	min-height: 212px;
 	width: 100%;
 	border-radius: 20px;
 	position: relative;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.65);
 }
-.home-lists .list .cover-content{
+
+/*List User*/
+.list-user{
+ margin: 30px auto;
+}
+.list-header {
+	display: grid;
+	grid-area: "bcd"
+						 "nm";
+}
+.list-body {
+	display: grid;
+	grid-gap: 15px;
+	grid-template-columns: repeat(2, 1fr);
+}
+.game-body {
+	min-height: 200px;
 	border-radius: 20px;
-	height: 100%;
-	left:0;
-	position: absolute;
-	top: 0;
-	width: 100%;
-	background: #444;
-}
-.home-lists .list .cover-shadow{
-	position: absolute;
-	top: 0;
-	left: 0;
-	display: flex;
-	width: 100%;
-	border-radius: 20px;
-	-webkit-box-orient: vertical;
-	-webkit-box-direction: normal;
-	flex-direction: column;
-	height: 100%;
-	color: var(--main-color-text);
-}
-.cover-shadow .link-list{
-	position: absolute;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	border-radius: 20px;
-}
-.cover-shadow .name-list {
-	background: linear-gradient(to top, transparent 0%, rgba(0, 0, 0, 0.6) 81%);
-	display: flex;
-  flex-wrap: nowrap;
-  pointer-events: none;
-  position: relative;
-  width: 100%;
-  padding: 15px;
-  border-radius: 20px 20px 0 0;
-  flex-shrink: 0;
-}
-.cover-shadow .name-list h4{
-	font-size: 18px;
-	color: var(--main-color-text);
-	margin-bottom: 0 !important;
-}
-.btn-add-list{
-	display: inline-block;
-	width: 60px;
-	height: 60px;
-	background-color: #7454C9;
-	border-radius: 100%;
-	position: fixed;
-	right: 10px;
-	bottom: 20px;
-}
-.btn-add-list button{
-	border-radius: 100%;
-	width: 100%;
-	height: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	position: relative;	
 }
 /*Footer*/
 footer{
@@ -289,11 +331,11 @@ footer{
 }
 
 /* Rules for sizing the icon. */
-.material-icons.md-18 { font-size: 18px; }
-.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-18 { width: 18px; height: 18px; }
+.material-icons.md-24 { width: 24px; height: 24px; }
 .material-icons.md-30 { width: 30px; height: 30px; }
-.material-icons.md-36 { font-size: 36px; }
-.material-icons.md-48 { font-size: 48px; }
+.material-icons.md-36 { width: 36px; height: 36px; }
+.material-icons.md-48 { width: 48px; height: 48px; }
 
 /* Rules for using icons as black on a light background. */
 .material-icons.md-dark { fill: rgba(0, 0, 0, 0.54); }
