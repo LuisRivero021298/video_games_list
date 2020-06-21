@@ -194,41 +194,42 @@ nav.bg-dark a{
 .circular-img {
 	border-radius: 100%;
 }
-
-/*login and register*/
-.login-wrapper-background {
-	display: none;
-}
+/*Forms*/
 form.container {
     padding-right: 5px;
     padding-left: 5px;
 }
 .form-group{
-	margin-bottom: 20px;
+	  margin-bottom: 20px;
 }
 .custom-select,
 .form-control, 
 .custom-file-label,
 .form-control:focus {
-	background: var(--main-color-input) !important;
-	border: 1px solid var(--main-color-input) !important;
-	color: var(--main-color-text-input) !important;
-	border-radius: 10px;
+	  background: var(--main-color-input) !important;
+	  border: 1px solid var(--main-color-input) !important;
+	  color: var(--main-color-text-input) !important;
+	  border-radius: 10px;
 }
 input.form-control:focus{
-	border-color: #80bdff;
+	  border-color: #80bdff;
 } 
 .input-group-text,
 .calendar,
 .custom-file-label::after {
-	background: var(--main-color-input) !important;
-	border: 1px solid #424242 !important;
+	  background: var(--main-color-input) !important;
+	  border: 1px solid #424242 !important;
 }
-.form-sing-in .btn-primary {
-	margin-top: 20px;
+.btn-primary {
+	  margin-top: 20px;
 }
 .btn-session:hover{
-	background-color: var(--main-color-btn-hover);
+	  background-color: var(--main-color-btn-hover);
+}
+
+/*login and register*/
+.login-wrapper-background {
+	display: none;
 }
 .form-check-label,
 .txt1 {
@@ -246,7 +247,6 @@ input.form-control:focus{
 }
 
 /*Home*/
-
 .home-header{
 	grid-area: header;
 	text-align: center;
@@ -342,7 +342,7 @@ footer{
 .material-icons.md-24 { width: 24px; height: 24px; }
 .material-icons.md-30 { width: 30px; height: 30px; }
 .material-icons.md-36 { width: 36px; height: 36px; }
-.material-icons.md-48 { width: 48px; height: 48px; }
+.material-icons.md-44 { width: 44px; height: 44px; }
 
 /* Rules for using icons as black on a light background. */
 .material-icons.md-dark { fill: rgba(0, 0, 0, 0.54); }
@@ -351,6 +351,8 @@ footer{
 /* Rules for using icons as white on a dark background. */
 .material-icons.md-light { fill: var(--main-color-text); }
 .material-icons.md-light.md-inactive { fill: rgba(255, 255, 255, 0.3); }
+
+/* RESPONSIVE */
 
 @media only screen and (min-width: 360px) {
 	.approot{
@@ -364,48 +366,45 @@ footer{
 	}
 }
 
-@media only screen and (min-height: 800px){
+/*@media only screen and (min-height: 800px){
 	.approot{
 		min-height: 825px;
 	}
-}
+}*/
 
-@media only screen and (min-width: 414px){
-	.main {
-		min-height: 650px;
-	}
-}
-
-@media only screen and (min-width: 768px){
+@media only screen and (min-width: 768px) and (min-height: 1024px){
 	.approot{
 		grid-template-rows: 1fr 200px;
 	}
 	.main{
 		min-height: 820px;
 	}
-	/*login and register*/
-	.register, .login{ 
-		width: 450px;
-		margin: 0 auto;
-	}
-	.container{
+
+	/*Form*/
+	form.container{
 		padding-left: 60px;
 		padding-right: 60px;
 	}
-	.form-sing-in .form-group input,
-	.form-sing-in .custom-file input,
-	.form-sing-in .custom-file-label{
-		height: 55px; 
+	.form-control,
+  .input-group,
+  .input-group .custom-select,
+	.custom-file input,
+	.custom-file-label,
+  .btn-primary{
+		height: 50px; 
 	}
-	.form-sing-in .custom-file-label{
+	.custom-file-label,
+  .btn-primary{
 		font-size: 1.4em;
 	}
-	.form-sing-in .custom-file-label::after{
-		height: 54px;
+	.custom-file-label::after{
+		height: 49px;
 	}
 	.form-group{
-		margin-top: 25px;
+		margin-bottom: 25px;
   }
+
+  /*Register and login*/
 	#remember {
 		width: 25px;
 		height: 25px;
@@ -417,6 +416,29 @@ footer{
 	.txt1{
 		font-size: 1.5em;
 	}
+
+  /*Home*/
+  .home-header .banner {
+      height: 220px;
+  }
+  .home-header .information-profile li{
+      font-size: 1.5em;
+  }
+  .home-header .information-profile .name-profile{
+      font-size: 34px;
+  }
+  .home-lists {
+      margin: 0;
+      grid-gap: 20px;
+      grid-template-columns: repeat(2, 1fr);
+  }
+  .btn-add{
+      width: 70px;
+      height: 70px;
+      right: 25px;
+      bottom: 25px;
+  }
+  /**/
 }
 @media only screen and (min-width: 769px){
 	.register, .login {

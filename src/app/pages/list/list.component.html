@@ -2,7 +2,11 @@
   <div class="list-header">
     <div class="bcd">
       <a routerLink="/home">
-        <img class="material-icons md-36 md-light" src="assets/icons/arrow_back-white.svg" alt="" />
+          <img
+              [class.md-44] ="screenSize.screenWidth >= 700"
+              [class.md-36] ="screenSize.screenWidth < 700"
+              class="material-icons md-light"
+              src="assets/icons/arrow_back-white.svg" alt="" />
       </a>
     </div>
     <div class="nm">
