@@ -31,6 +31,21 @@ body {
 	align-items: center;
 	justify-content: center;
 }
+/* Pages dimention */
+.page-base {
+	  display: grid;
+	  grid-template-areas: "header"
+											   "body";
+	  max-width: 90%;
+	  margin: 30px auto; 
+}
+.home-user {
+    margin:90px auto 30px auto;
+}
+.login, .register {
+    min-height: 420px;
+	  grid-template-rows: 150px 1fr; 
+}
 
 /*Buttons*/
 .btn{
@@ -184,29 +199,28 @@ nav.bg-dark a{
 .login-wrapper-background {
 	display: none;
 }
-.login, .register {
-	min-height: 420px;
-	margin-top: 10px;
-	display: grid;
-	grid-template-rows: 150px 1fr; 
+form.container {
+    padding-right: 5px;
+    padding-left: 5px;
 }
-
-.form-group {
+.form-group{
 	margin-bottom: 20px;
 }
-.form-sing-in .form-control, 
+.custom-select,
+.form-control, 
 .custom-file-label,
-.form-sing-in .form-control:focus {
+.form-control:focus {
 	background: var(--main-color-input) !important;
 	border: 1px solid var(--main-color-input) !important;
 	color: var(--main-color-text-input) !important;
 	border-radius: 10px;
 }
-.form-sing-in input:focus{
+input.form-control:focus{
 	border-color: #80bdff;
 } 
-.form-sing-in .calendar,
-.form-sing-in .custom-file-label::after {
+.input-group-text,
+.calendar,
+.custom-file-label::after {
 	background: var(--main-color-input) !important;
 	border: 1px solid #424242 !important;
 }
@@ -232,15 +246,7 @@ nav.bg-dark a{
 }
 
 /*Home*/
-.home-user, 
-.list-user,
-.edit-profile{
-	display: grid;
-	grid-template-areas: "header"
-											 "body";
-	max-width: 90%;
-	margin: 90px auto 30px auto; 
-}
+
 .home-header{
 	grid-area: header;
 	text-align: center;
@@ -309,10 +315,7 @@ nav.bg-dark a{
 }
 
 /*List User*/
-.list-user,
-.edit-profile{
- margin: 30px auto;
-}
+
 .list-header,
 .edit-header {
 	display: grid;
@@ -401,9 +404,8 @@ footer{
 		height: 54px;
 	}
 	.form-group{
-		margin-bottom: 0;
 		margin-top: 25px;
-	}
+  }
 	#remember {
 		width: 25px;
 		height: 25px;

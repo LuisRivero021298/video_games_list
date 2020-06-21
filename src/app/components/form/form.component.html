@@ -2,7 +2,7 @@
 	
   <div 
     class="form-group row"
-    *ngIf="page.page === 'register'" 
+    *ngIf="page.page === 'register' || page.page === 'edit'" 
   >
     <div class="col">
       <input 
@@ -27,6 +27,7 @@
 
 	<div 
     class="form-group row" 
+      *ngIf="page.page !== 'edit'"
   > 
     <div class="col">
       <input 
@@ -50,6 +51,7 @@
 
   <div 
     class="form-group row"
+      *ngIf="page.page !== 'edit'"
   >
     <div class="col">
       <input 
@@ -74,7 +76,7 @@
 
 	<div 
     class="form-group row" 
-    *ngIf="page.page === 'register'"
+    *ngIf="page.page !== 'login'"
   >
     <div class="input-group col">
       <input 
@@ -104,7 +106,7 @@
 
   <div 
     class="form-group custom-file" 
-    *ngIf="page.page === 'register'"
+    *ngIf="page.page === 'register' || page.page === 'edit'"
     [class.form-control-lg] = "
       screenSize.screenWidth >= 350 &&
       screenSize.screenWidth < 740 &&
@@ -122,19 +124,11 @@
 
 	<div class="form-group row">
     <div class="col">
-  		<button
-        *ngIf="page.page === 'login'" 
-        type="submit" 
-        class="btn btn-primary btn-large"
-      >
-  			Sing in
-  		</button>
       <button
-        *ngIf="page.page === 'register'" 
-        type="submit" 
+        type="submit"
         class="btn btn-primary btn-large"
       >
-        Register
+          {{ page.action }}
       </button>
     </div>
 	</div><!-- Button !-->

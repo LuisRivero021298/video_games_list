@@ -1,4 +1,4 @@
-<div class="edit-profile">
+<div class="edit-profile page-base">
 	<div class="edit-header">
 		<div class="bcd">
 			<a routerLink="/home">
@@ -11,6 +11,6 @@
 		</div>
 	</div>
 	<div class="edit-body">
-		<app-form></app-form>
+		<app-form [page]="page" [user]="user" [screenSize]="screenSize"></app-form>
 	</div>
 </div>

@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   ) {
   	this.page = {
   		title: 'log in',
-  		action: 'log in',
+  		action: 'Login',
   		page: 'login',
   		rememberUser: false
   	}

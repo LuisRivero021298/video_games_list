@@ -70,7 +70,7 @@ export class FormComponent implements OnInit {
       },{ 
           validateDateExist: this._validator.dateExists('birthdate')
       }); 
-    } else {
+    } else if (this.page.page === 'login') {
       this.form = this._fb.group({
         email: ['',
           [
@@ -86,9 +86,19 @@ export class FormComponent implements OnInit {
         ],
         remember: ['']
       });
-    }
-  }
-
+    } else {
+        this.form = this._fb.group({
+            username: ['',
+              [
+                this.valid[0],
+                this.valid[2]
+              ]
+                      ],
+            birthdate: ['', this.valid[0]],
+            photo: ['']
+        })
+    } 
+}
   validateForm() {
     (this.form.invalid) ? this.showInvalids(this.form) : this.vForm.emit(this.form.value);
   } 
@@ -97,7 +107,11 @@ export class FormComponent implements OnInit {
     if (this.page.page === 'login') { 
       this.form.reset(this.user) 
       this.form.controls['remember'].setValue(this.page.rememberUser)
-    };
+    }
+
+      if (this.page.page === 'edit'){
+          this.form.reset(this.user);
+      }
   }
 
   showInvalids(validate: FormGroup){

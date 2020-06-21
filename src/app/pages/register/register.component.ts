@@ -24,7 +24,7 @@ export class RegisterComponent implements OnInit {
   ) { 
   	this.page = {
   		title: 'register',
-  		action: 'register',
+  		action: 'Register',
   		page: 'register',
       rememberUser: false
   	}
