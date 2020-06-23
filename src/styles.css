@@ -459,6 +459,16 @@ footer{
 }
 
 @media only screen and (min-width: 1300px) {
+  /* Login and register */
+  .login .title-primary,
+  .register .title-primary {
+    width: 500px; 
+    border: 3px solid rgba(116, 84, 201, 0.4);
+    border-bottom: 0;
+    border-radius: 30px 30px 0 0; 
+    margin: 0 auto;
+    margin-top: 20px;
+  }
   /* Home Desktop*/
   .navbar{
     height: 70px;
@@ -516,8 +526,10 @@ footer{
     margin: 0 auto;
     margin-top: 20px;
   }
-  .my-4{ display: none; }
-  .home-lists {
+  .my-4{ 
+    display: none;  
+  }
+  .home-lists { 
     margin-left: 420px;
     padding: 55px;
     padding-left: 60px;
@@ -530,14 +542,53 @@ footer{
   .cover-shadow,
   .cover-shadow .name-list,
   .cover-content img,
-  .cover-content{
+  .cover-content,
+  .list-user .game-body,
+  .list-user .name-game{
     border-radius: 0;
   }
   .cover-shadow .name-list h4 {
     font-size: 28px;
   }
   
+  /* Edit Profile */
+  .bcd {
+    width: 90%;
+    margin: 0 auto;
+  }
+  .edit-header .nm {
+    width: 500px;
+    border: 3px solid rgba(116, 84, 201, 0.4);
+    border-bottom: 0;
+    border-radius: 30px 30px 0 0;
+    margin: 0 auto;
+    padding-top: 40px;
+  }
+  form.container {
+    max-width: 500px;
+    min-height: 500px;
+    padding-top:20px;
+    border: 3px solid rgba(116, 84, 201, 0.4); 
+    border-top:0;
+    border-radius: 0 0 30px 30px;
+  }  
 
+  /* list */
+  .list-user .my-4{
+    display: block;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .list-body {
+    width: 1100px;
+    margin: 20px auto;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 25px;
+  } 
+  .list-body .game-body {
+    min-height: 300px; 
+  }
 
 }
 
