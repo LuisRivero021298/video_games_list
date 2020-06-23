@@ -12,7 +12,6 @@ body {
 	--main-color-text-input: #5D5D5D;
 	--main-color-btn: #7454C9;
 	--main-color-btn-hover: #7648EE;
-
 }
 .approot{
 	display: grid;
@@ -277,7 +276,6 @@ input.form-control:focus{
 	display: block;
 	margin: 0 auto;
 	border-radius: 100%;
-	padding: 5px;
 	margin-top: -50%;
 	border: 5px solid var(--main-color-text);
 	width: 135px;
@@ -311,7 +309,7 @@ input.form-control:focus{
 	width: 100%;
 	border-radius: 20px;
 	position: relative;
-	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.65);
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 /*List User*/
@@ -372,7 +370,7 @@ footer{
 	}
 }*/
 
-@media only screen and (min-width: 768px) and (min-height: 1024px){
+@media only screen and (min-width: 768px) {
 	.approot{
 		grid-template-rows: 1fr 200px;
 	}
@@ -419,7 +417,7 @@ footer{
 
   /*Home*/
   .home-header .banner {
-      height: 220px;
+      height: 230px;
   }
   .home-header .information-profile li{
       font-size: 1.5em;
@@ -440,94 +438,106 @@ footer{
   }
   /**/
 }
-@media only screen and (min-width: 769px){
-	.register, .login {
-		margin-top: 50px;
-		min-height: 650px;
-		background-color: rgba(0,0,0,0.85);
-		border-radius: 5px;
-	}
-	.login-wrapper-background {
-		background-size: cover;
-		display: block;
-		min-height: 100%;
-		overflow: hidden;
-		position: absolute;
-		width: 100%;
-		z-index: -1;
-	}
-	.login-wrapper-background img {
-		min-height: 100%;
-		min-height: 100%;
-		opacity: .4;
-	}
-	.form-sing-in .form-group input,
-	.form-sing-in .custom-file input,
-	.form-sing-in .custom-file-label{
-		height: 40px; 
-	}
-	.form-sing-in .custom-file-label{
-		font-size: 1.2em;
-	}
-	.form-sing-in .custom-file-label::after{
-		height: 39px;
-	}
-	.form-group{
-		margin-bottom: 0;
-		margin-top: 15px;
-	}
-	#remember {
-		width: 15px;
-		height: 15px;
-	}
-	.form-check-label{
-		margin-left: 5px;
-		font-size: 1em;
-	}
-	.txt1{
-		font-size: 1.2em;
-	}
+
+@media only screen and (min-width: 990px) {
+  .navbar .brd{
+    display: none;
+  }
+  .home-lists .list,
+  .game-body {
+    min-height: 280px; 
+  } 
 }
 
-@media only screen and (min-width: 900px){
-	.approot{
-		grid-template-rows: minmax(700px, 1fr) 200px;
-	}
-	.main{
-		min-height: 880px;
-	}
-	.register, .login{
-		margin-top: 90px;
-	}
-}
 @media only screen and (min-width: 1024px) and (min-height: 1366px){
-	.approot{
-		grid-template-rows: minmax(1080px, 1fr) 300px;
-	}
-	nav.bg-dark,
-	nav.bg-dark a{
-		font-size: 1.4em;
-	}
-	.main {
-		min-height: 1080px;
-	}
-	.login, .register{
-		width: 530px;
-		min-height: 900px;
-	}
-	.form-sing-in .container{
-		padding-left: 75px;
-		padding-right: 75px;
-	}
-	.form-sing-in .form-group input,
-	.form-sing-in .custom-file input,
-	.form-sing-in .custom-file-label,
-	.btn-session{
-		height: 65px;
-		font-size: 1.5em; 
-	}
-	.form-group{
-		margin-bottom: 0;
-		margin-top: 35px;
-	}	
+  body{
+    height: 1366px;
+  }
+  .approot {
+    height:100%;
+  }
 }
+
+@media only screen and (min-width: 1300px) {
+  /* Home Desktop*/
+  .navbar{
+    height: 70px;
+    padding: .5rem 2.5rem;
+  }
+  .navbar-brand{
+    font-size: 30px;
+  }
+  .page-base {
+   max-width: 100%;
+  }
+  .home-user {
+    margin: 70px auto 30px auto;
+  }
+  .home-header{
+    position: relative;
+  }
+  .home-header .banner,
+  .home-header .banner img{
+    border-radius: 0;
+  }
+  .pr {
+    position: absolute;
+    left: 55px;
+    top: 60px;
+    width: 365px;
+    background-color: #242424;
+    height: 550px;
+    border-radius: 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+  .home-header .base-profile .profile{
+    position: inherit;
+    vertical-align: inherit; 
+  }
+  .home-header .base-profile .photo-profile {
+    margin-top: 0;
+    border-radius: 0;
+	  border: none;
+    width: 100%;
+    height: 300px;
+  }
+  .home-header .base-profile .photo-profile img{
+    border-radius: 0;
+  }
+  .home-header .information-profile .name-profile {
+    font-size: 30px;
+  }
+  .home-header .information-profile li {
+    font-size: 1.3em;
+  }
+  .home-header button {
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 20px;
+  }
+  .my-4{ display: none; }
+  .home-lists {
+    margin-left: 420px;
+    padding: 55px;
+    padding-left: 60px;
+    grid-gap: 30px;
+  }
+  .home-lists .list {
+    min-height: 330px;
+    border-radius: 0;
+  }
+  .cover-shadow,
+  .cover-shadow .name-list,
+  .cover-content img,
+  .cover-content{
+    border-radius: 0;
+  }
+  .cover-shadow .name-list h4 {
+    font-size: 28px;
+  }
+  
+
+
+}
+

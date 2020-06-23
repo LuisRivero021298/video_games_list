@@ -4,33 +4,36 @@
 		<div class="banner">
 			<img class="cover-img img" src="assets/images/banner-test.jpg" alt="">
 		</div>
-		<div class="base-profile center">
-			<div class="profile">
-				<div class="photo-profile">
-					<img 
-						class="cover-img img circular-img"
-						src="assets/images/profile-test.jpg" 
-						alt=""
-					>
-				</div>
-			</div>
-		</div>
 
-		<ul class="information-profile">
-			<li class="name-profile">{{ profile.username }}</li>
-			<li class="email-profile">{{ profile.email }}</li>
-			<li class="age-profile">{{ profile.birthdate | age}} year old</li>
-		</ul>
-    <button (click)="goEditProfile()" type="button" class="btn btn-primary btn-large">
-      Edit Profile
-    </button>
+    <div class="pr">
+		  <div class="base-profile center">
+			  <div class="profile">
+				  <div class="photo-profile">
+					  <img 
+						  class="cover-img img circular-img"
+						  src="assets/images/profile-test.jpg" 
+						  alt=""
+					  >
+				  </div>
+			  </div>
+		  </div>
+		  <ul class="information-profile">
+			  <li class="name-profile">{{ profile.username }}</li>
+			  <li class="email-profile">{{ profile.email }}</li>
+			  <li class="age-profile">{{ profile.birthdate | age}} year old</li>
+		  </ul>
+      <button (click)="goEditProfile()" type="button" class="btn btn-primary btn-large">
+       Edit Profile
+      </button>
+    </div>
+
     <hr class="my-4">
 	</div> <!-- end home-header-->
 
 	<div class="home-lists">
 	  <div class="list">
       <div class="cover-content">
-      <img class="img cover-img" src="assets/images/game-test.jpeg" alt=""/> 
+      <img class="img cover-img" src="assets/images/re.jpg" alt=""/> 
       </div>
       <div class="cover-shadow">
         <a class="link-list" routerLink="/list"></a>
@@ -41,7 +44,7 @@
     </div>
     <div class="list">
       <div class="cover-content">
-      <img class="img cover-img" src="assets/images/game-test.jpeg" alt=""/> 
+      <img class="img cover-img" src="assets/images/dmc5.jpg" alt=""/> 
       </div>
       <div class="cover-shadow">
         <a class="link-list" routerLink="/list"></a>

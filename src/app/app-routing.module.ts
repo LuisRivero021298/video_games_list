@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
 import { AuthGuard } from "./guards/auth.guard";
-import { NoAuthGuard } from "./guards/noAuth.guard"; 
+import { NoAuthGuard } from "./guards/noAuth.guard";
 
 import { HomeComponent } from "./pages/home/home.component";
 import { ListComponent } from "./pages/list/list.component";
@@ -17,9 +17,17 @@ let routes: Routes = [
   { path: "list", component: ListComponent, canActivate: [AuthGuard] },
   { path: "game", component: GameComponent, canActivate: [AuthGuard] },
   { path: "login", component: LoginComponent, canActivate: [NoAuthGuard] },
-  { path: "register", component: RegisterComponent, canActivate: [NoAuthGuard] },
-  { path: "edit-profile", component: EditProfileComponent },
-  { path: "rating", component: RatingComponent},
+  {
+    path: "register",
+    component: RegisterComponent,
+    canActivate: [NoAuthGuard],
+  },
+  {
+    path: "edit-profile",
+    component: EditProfileComponent,
+    canActivate: [AuthGuard],
+  },
+  { path: "rating", component: RatingComponent, canActivate: [AuthGuard] },
   { path: "**", redirectTo: "login", pathMatch: "full" },
 ];
 
