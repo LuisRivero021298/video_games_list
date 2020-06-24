@@ -10,11 +10,9 @@ import { Router } from "@angular/router";
 })
 export class HomeComponent implements OnInit {
   profile: UserModel;
+  url = "http://localhost:3000/api";
 
-  constructor(
-    private _auth: AuthService,
-    private _router: Router
-  ) {
+  constructor(private _auth: AuthService, private _router: Router) {
     this.profile = new UserModel({
       username: "patricia123",
       email: "patricia123@gmail.com",
@@ -40,7 +38,7 @@ export class HomeComponent implements OnInit {
     );
   }
 
-  goEditProfile(){
+  goEditProfile() {
     this._router.navigateByUrl("/edit-profile");
   }
 }

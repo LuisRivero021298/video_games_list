@@ -2,7 +2,7 @@
 <div class="home-user page-base">
 	<div class="home-header">
 		<div class="banner">
-			<img class="cover-img img" src="assets/images/banner-test.jpg" alt="">
+			<img class="cover-img img" src="assets/images/banner-test.jpg" alt="banner">
 		</div>
 
     <div class="pr">
@@ -11,8 +11,8 @@
 				  <div class="photo-profile">
 					  <img 
 						  class="cover-img img circular-img"
-						  src="assets/images/profile-test.jpg" 
-						  alt=""
+						  [src]="url+'/image/'+profile.photo" 
+						  [alt]="profile.photo"
 					  >
 				  </div>
 			  </div>

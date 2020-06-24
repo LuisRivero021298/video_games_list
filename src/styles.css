@@ -213,6 +213,7 @@ form.container {
 input.form-control:focus{
 	  border-color: #80bdff;
 } 
+.resetBtn { display: none;}
 .input-group-text,
 .calendar,
 .custom-file-label::after {

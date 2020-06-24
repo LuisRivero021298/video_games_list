@@ -1,32 +1,31 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormGroup, Validators, FormBuilder,
-         FormArray} from '@angular/forms';
-import { ValidatorsService } from '../../services/validators.service';
-import { Page } from '../../interfaces/Page.interface';
-import { UserModel } from '../../models/user.model';
-import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { FormGroup, Validators, FormBuilder, FormArray } from "@angular/forms";
+import { ValidatorsService } from "../../services/validators.service";
+import { Page } from "../../interfaces/Page.interface";
+import { UserModel } from "../../models/user.model";
+import { NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
-  selector: 'app-form',
-  templateUrl: './form.component.html',
-  styles: []
+  selector: "app-form",
+  templateUrl: "./form.component.html",
+  styles: [],
 })
 export class FormComponent implements OnInit {
   @Input() page: Page;
   @Input() user: any;
   @Input() screenSize;
 
-  @Output() vForm: EventEmitter<UserModel>;
+  @Output() vForm: EventEmitter<Array<any>>;
 
-	form: FormGroup;
-	valid: Array<Validators> = [];
-  
+  form: FormGroup;
+  valid: Array<Validators> = [];
+  file: Array<File>;
 
-  constructor( private _fb: FormBuilder, private _validator: ValidatorsService ) {
-  	this.valid = [
-      Validators.required, 
+  constructor(private _fb: FormBuilder, private _validator: ValidatorsService) {
+    this.valid = [
+      Validators.required,
       Validators.minLength(3),
-      Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')
+      Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$"),
     ];
     this.vForm = new EventEmitter();
   }
@@ -36,135 +35,111 @@ export class FormComponent implements OnInit {
     this.loadData();
   }
 
-  
   formCreate() {
-    if(this.page.page === 'register') {
-
+    if (this.page.page === "register") {
+      this.form = this._fb.group(
+        {
+          username: [
+            "",
+            [
+              this.valid[0],
+              this.valid[1],
+              //this._validator.userExists
+            ],
+          ],
+          email: ["", [this.valid[0], this.valid[2]]],
+          password: ["", [this.valid[0], this.valid[1]]],
+          birthdate: ["", [this.valid[0]]],
+          photo: [""],
+        },
+        {
+          validateDateExist: this._validator.dateExists("birthdate"),
+        }
+      );
+    } else if (this.page.page === "login") {
       this.form = this._fb.group({
-        username:  ['', 
-          [
-            this.valid[0], 
-            this.valid[1]
-            //this._validator.userExists
-          ]
-        ],
-        email: ['',
-          [
-            this.valid[0], 
-            this.valid[2]
-          ] 
-        ],
-        password: ['', 
-          [
-            this.valid[0],
-            this.valid[1]
-          ]
-        ],
-        birthdate: ['', 
-          [
-            this.valid[0],
-          ]
-        ],
-        photo: ['']
-        
-      },{ 
-          validateDateExist: this._validator.dateExists('birthdate')
-      }); 
-    } else if (this.page.page === 'login') {
-      this.form = this._fb.group({
-        email: ['',
-          [
-            this.valid[0], 
-            this.valid[2]
-          ] 
-        ],
-        password: ['', 
-          [
-            this.valid[0],
-            this.valid[1]
-          ]
-        ],
-        remember: ['']
+        email: ["", [this.valid[0], this.valid[2]]],
+        password: ["", [this.valid[0], this.valid[1]]],
+        remember: [""],
       });
     } else {
-        this.form = this._fb.group({
-            username: ['',
-              [
-                this.valid[0],
-                this.valid[2]
-              ]
-                      ],
-            birthdate: ['', this.valid[0]],
-            photo: ['']
-        })
-    } 
-}
+      this.form = this._fb.group({
+        username: ["", [this.valid[0], this.valid[2]]],
+        birthdate: ["", this.valid[0]],
+        photo: [""],
+      });
+    }
+  }
   validateForm() {
-    (this.form.invalid) ? this.showInvalids(this.form) : this.vForm.emit(this.form.value);
-  } 
+    this.form.invalid
+      ? this.showInvalids(this.form)
+      : this.vForm.emit([this.form.value, this.file]);
+  }
 
   loadData() {
-    if (this.page.page === 'login') { 
-      this.form.reset(this.user) 
-      this.form.controls['remember'].setValue(this.page.rememberUser)
+    if (this.page.page === "login") {
+      this.form.reset(this.user);
+      this.form.controls["remember"].setValue(this.page.rememberUser);
     }
 
-      if (this.page.page === 'edit'){
-          this.form.reset(this.user);
-      }
+    if (this.page.page === "edit") {
+      this.form.reset(this.user);
+    }
   }
 
-  showInvalids(validate: FormGroup){
-    if( validate.invalid ) {
-      return Object.values(validate.controls).forEach( 
-        control => {
-          if( control instanceof FormGroup ) {
-            Object.values(control.controls).forEach(
-              control => { 
-                control.markAsTouched() 
-              }
-            )
-          } else { control.markAsTouched() }
-        
+  showInvalids(validate: FormGroup) {
+    if (validate.invalid) {
+      return Object.values(validate.controls).forEach((control) => {
+        if (control instanceof FormGroup) {
+          Object.values(control.controls).forEach((control) => {
+            control.markAsTouched();
+          });
+        } else {
+          control.markAsTouched();
         }
-      )
+      });
     }
   }
 
-  get usernameEmpty(){
-    return this.form.get('username').value;
+  onFileChange(e) {
+    this.file = e.target.files;
   }
 
-  get emailEmpty(){
-    return this.form.get('email').value;
+  get usernameEmpty() {
+    return this.form.get("username").value;
   }
 
-  get passwordEmpty(){
-    return this.form.get('password').value;
+  get emailEmpty() {
+    return this.form.get("email").value;
   }
 
-  get birthdateEmpty(){
-    return this.form.get('birthdate').value;
+  get passwordEmpty() {
+    return this.form.get("password").value;
   }
 
-  get usernameInvalid(){
-    return this.form.get('username').invalid &&
-           this.form.get('username').touched;
+  get birthdateEmpty() {
+    return this.form.get("birthdate").value;
   }
 
-  get emailInvalid(){
-    return this.form.get('email').invalid &&
-           this.form.get('email').touched;
+  get usernameInvalid() {
+    return (
+      this.form.get("username").invalid && this.form.get("username").touched
+    );
   }
 
-  get passwordInvalid(){
-    return this.form.get('password').invalid &&
-           this.form.get('password').touched;
+  get emailInvalid() {
+    return this.form.get("email").invalid && this.form.get("email").touched;
   }
 
-  get birthdateInvalid(){
-    return this.form.get('birthdate').invalid &&
-           this.form.get('birthdate').touched;
+  get passwordInvalid() {
+    return (
+      this.form.get("password").invalid && this.form.get("password").touched
+    );
   }
 
+  get birthdateInvalid() {
+    return (
+      this.form.get("birthdate").invalid && this.form.get("birthdate").touched
+    );
+  }
 }

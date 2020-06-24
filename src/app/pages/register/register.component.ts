@@ -1,33 +1,36 @@
-import { Component, OnInit } from '@angular/core';
-import { Page } from '../../interfaces/Page.interface';
-import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
-import { UserModel } from '../../models/user.model';
+import { Component, OnInit } from "@angular/core";
+import { Page } from "../../interfaces/Page.interface";
+import { Router } from "@angular/router";
+import { AuthService } from "../../services/auth.service";
+import { UserModel } from "../../models/user.model";
+import { Observable } from "rxjs";
+import { FilesService } from "src/app/services/files.service";
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styles: []
+  selector: "app-register",
+  templateUrl: "./register.component.html",
+  styles: [],
 })
 export class RegisterComponent implements OnInit {
-	page : Page;
-  rememberUser: boolean = false
-  user: UserModel
+  page: Page;
+  rememberUser: boolean = false;
+  user: UserModel;
   screenSize = {
     screenWidth: 0,
-    screenHeigth: 0
-  }
+    screenHeigth: 0,
+  };
 
   constructor(
     private _auth: AuthService,
-    private _router: Router
-  ) { 
-  	this.page = {
-  		title: 'register',
-  		action: 'Register',
-  		page: 'register',
-      rememberUser: false
-  	}
+    private _router: Router,
+    private _files: FilesService
+  ) {
+    this.page = {
+      title: "register",
+      action: "Register",
+      page: "register",
+      rememberUser: false,
+    };
     this.user = new UserModel({});
   }
 
@@ -36,33 +39,55 @@ export class RegisterComponent implements OnInit {
     this.screenSize.screenHeigth = screen.height;
   }
 
-  registerNew( vForm: UserModel ) {
-    this.user = vForm;
-    this.user.photo = this.getFile(vForm);
-    this.user.birthdate = this.formatDate(this.user.birthdate);
-    
+  async registerNew(vForm: Array<any>) {
+    let file = vForm[1];
+    let fileUploaded = await this.uploadFile(file);
 
-    //this._alert.loadingMessage('Wait a moment please');
-
-    this._auth.newUser(this.user).subscribe( 
-      (data:any) => {
-        console.log(data);
-        //this._alert.closeAlert();
-        this.rememberUser = true;
-        this.rememberUsers();
-        this._router.navigate(['/home']);
-      },
-      (err: any) => {
-        //alert('Error: '+err)
-        console.log(err);
-        //this._alert.errorMessage(err, 'Failed to authenticate');
+    if (fileUploaded === "err") {
+      alert("Error al subir imagen");
+    } else {
+      this.user = vForm[0];
+      this.user.photo = fileUploaded.toString();
+      this.user.birthdate = this.formatDate(this.user.birthdate);
+      //this._alert.loadingMessage('Wait a moment please');
+      this._auth.newUser(this.user).subscribe(
+        (data: any) => {
+          console.log(data);
+          //this._alert.closeAlert();
+          this.rememberUser = true;
+          this.rememberUsers();
+          this._router.navigate(["/home"]);
+        },
+        (err: any) => {
+          //alert('Error: '+err)
+          console.log(err);
+          //this._alert.errorMessage(err, 'Failed to authenticate');
+        }
+      );
+    }
+  }
+  uploadFile(file) {
+    return new Promise((resolve, reject) => {
+      let formData = new FormData();
+      for (let i = 0; i < file.length; i++) {
+        formData.append("file0", file[i], file[i].name);
+      }
+      this._files.uploadFile(formData).subscribe(
+        (resp: any) => {
+          return resolve(resp.data.fileName);
+        },
+        (err) => {
+          console.log(err);
+          reject("err");
+        }
+      );
     });
   }
 
   rememberUsers() {
-    if ( this.rememberUser ) {
-      localStorage.setItem('email', this.user.email);
-    } 
+    if (this.rememberUser) {
+      localStorage.setItem("email", this.user.email);
+    }
   }
 
   private getFile(vForm: UserModel) {
@@ -73,8 +98,8 @@ export class RegisterComponent implements OnInit {
   }
 
   private formatDate(date) {
-    let formatDate = '';
-    formatDate = Object.values(date).join('-');
+    let formatDate = "";
+    formatDate = Object.values(date).join("-");
 
     return formatDate;
   }

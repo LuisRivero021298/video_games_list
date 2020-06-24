@@ -118,7 +118,9 @@
       class="custom-file-input" 
       id="customFile" 
       formControlName="photo"
+      (change)="onFileChange($event)"
     > 
+
     <label class="custom-file-label" for="customFile">Choose photo</label>
   </div> <!-- file !-->
 
