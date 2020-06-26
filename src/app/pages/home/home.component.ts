@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { AuthService } from "../../services/auth.service";
+import { ListService } from "../../services/list.service";
 import { UserModel } from "../../models/user.model";
 import { Router } from "@angular/router";
 
@@ -12,17 +13,22 @@ export class HomeComponent implements OnInit {
   profile: UserModel;
   url = "http://localhost:3000/api";
 
-  constructor(private _auth: AuthService, private _router: Router) {
+  constructor(
+    private _auth: AuthService,
+    private _router: Router,
+    private _list: ListService
+  ) {
     this.profile = new UserModel({
-      username: "patricia123",
-      email: "patricia123@gmail.com",
-      photo: "node_js_hexagon-wallpaper-1920x1200.jpg",
-      birthdate: "1997-06-04T05:00:00.000Z",
+      username: "",
+      email: "",
+      photo: "",
+      birthdate: "",
     });
   }
 
   ngOnInit(): void {
     this.getProfile();
+    this.getLists();
   }
 
   getProfile() {
@@ -30,6 +36,18 @@ export class HomeComponent implements OnInit {
     this._auth.getUser(token).subscribe(
       (resp) => {
         this.profile = resp;
+        console.log(resp);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  getLists() {
+    const token = this._auth.readToken();
+    this._list.getListsByUser(token).subscribe(
+      (resp) => {
         console.log(resp);
       },
       (err) => {

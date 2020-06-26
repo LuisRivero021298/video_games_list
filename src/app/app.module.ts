@@ -3,7 +3,6 @@ import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { ChartsModule } from "ng2-charts";
-import { AngularFileUploaderModule } from "angular-file-uploader";
 //routes
 import { AppRoutingModule } from "./app-routing.module";
 
@@ -40,7 +39,6 @@ import { RatingComponent } from "./pages/rating/rating.component";
     RatingComponent,
   ],
   imports: [
-    AngularFileUploaderModule,
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,

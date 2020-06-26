@@ -17,7 +17,6 @@ export class AuthService {
   }
 
   getUser(idUser: string) {
-    let token = this.readToken();
     let headers = new HttpHeaders().set("x-access-token", idUser);
     return this._http
       .get<any>(this.url + "/profile", { headers })
