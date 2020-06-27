@@ -31,7 +31,7 @@
 	</div> <!-- end home-header-->
 
 	<div class="home-lists">
-	  <div class="list">
+	  <div class="list" *ngIf="list.length !== 0; else noList">
       <div class="cover-content">
       <img class="img cover-img" src="assets/images/re.jpg" alt=""/> 
       </div>
@@ -42,10 +42,14 @@
         </div>
       </div>
     </div>
+
+    <ng-template #noList>
+      <h4 class="center">{{ errorlist }}</h4> 
+    </ng-template>
     
   </div> <!-- end home-lists-->
 </div>
-<div class="btn-add btn-circle">
+<div class="btn-add btn-circle" (click)="createLists()">
   <button class="btn">
     <img class="material-icons md-30 md-light" src="assets/icons/add.svg" alt="icon-add">
   </button>

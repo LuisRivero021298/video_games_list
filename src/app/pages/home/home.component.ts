@@ -2,7 +2,10 @@ import { Component, OnInit } from "@angular/core";
 import { AuthService } from "../../services/auth.service";
 import { ListService } from "../../services/list.service";
 import { UserModel } from "../../models/user.model";
+import { ListModel } from "../../models/list.model";
 import { Router } from "@angular/router";
+import { AlertsService } from "../../services/alerts.service";
+import Swal from "sweetalert2";
 
 @Component({
   selector: "app-home",
@@ -11,12 +14,15 @@ import { Router } from "@angular/router";
 })
 export class HomeComponent implements OnInit {
   profile: UserModel;
+  list: Array<ListModel>;
+  errorlist: string;
   url = "http://localhost:3000/api";
 
   constructor(
     private _auth: AuthService,
     private _router: Router,
-    private _list: ListService
+    private _list: ListService,
+    private _alert: AlertsService
   ) {
     this.profile = new UserModel({
       username: "",
@@ -24,6 +30,8 @@ export class HomeComponent implements OnInit {
       photo: "",
       birthdate: "",
     });
+
+    this.list = [];
   }
 
   ngOnInit(): void {
@@ -36,7 +44,6 @@ export class HomeComponent implements OnInit {
     this._auth.getUser(token).subscribe(
       (resp) => {
         this.profile = resp;
-        console.log(resp);
       },
       (err) => {
         console.log(err);
@@ -49,11 +56,16 @@ export class HomeComponent implements OnInit {
     this._list.getListsByUser(token).subscribe(
       (resp) => {
         console.log(resp);
+        //this.list = resp;
       },
       (err) => {
-        console.log(err);
+        this.errorlist = err.error.message;
       }
     );
+  }
+
+  createLists() {
+    this._alert.createList().then((value) => console.log(value));
   }
 
   goEditProfile() {

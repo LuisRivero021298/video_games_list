@@ -299,6 +299,7 @@ input.form-control:focus{
 	border-top: 2.5px solid #262626;
 }
 .home-lists {
+  min-height: 150px; 
 	margin: 0 auto;
 	grid-area: body;
 	display: grid;
