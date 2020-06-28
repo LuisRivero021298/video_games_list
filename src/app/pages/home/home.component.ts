@@ -14,7 +14,7 @@ import Swal from "sweetalert2";
 })
 export class HomeComponent implements OnInit {
   profile: UserModel;
-  list: Array<ListModel>;
+  lists: Array<ListModel>;
   errorlist: string;
   url = "http://localhost:3000/api";
 
@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
       birthdate: "",
     });
 
-    this.list = [];
+    this.lists = [];
   }
 
   ngOnInit(): void {
@@ -65,7 +65,23 @@ export class HomeComponent implements OnInit {
   }
 
   createLists() {
-    this._alert.createList().then((value) => console.log(value));
+    const token = this._auth.readToken();
+    this._alert
+      .create()
+      .then((value: string) => {
+        let newList = {
+          name_list: value,
+          id_user: token,
+        };
+        this._list.addList(newList).subscribe(
+          (resp) => {
+            console.log(resp);
+            this._router.navigate(["list"], resp.data.id);
+          },
+          (err) => console.error(err)
+        );
+      })
+      .catch((err) => console.error(err));
   }
 
   goEditProfile() {

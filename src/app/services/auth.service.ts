@@ -31,7 +31,6 @@ export class AuthService {
     let newU = JSON.stringify(newUser);
     let headers = new HttpHeaders().set("Content-Type", "application/json");
 
-    console.log(newU);
     return this._http
       .post<any>(this.url + "/register", newU, { headers })
       .pipe(

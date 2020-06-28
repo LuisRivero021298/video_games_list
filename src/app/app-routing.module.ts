@@ -14,7 +14,7 @@ import { RatingComponent } from "./pages/rating/rating.component";
 
 let routes: Routes = [
   { path: "home", component: HomeComponent, canActivate: [AuthGuard] },
-  { path: "list", component: ListComponent, canActivate: [AuthGuard] },
+  { path: "list/:id-list", component: ListComponent, canActivate: [AuthGuard] },
   { path: "game", component: GameComponent, canActivate: [AuthGuard] },
   { path: "login", component: LoginComponent, canActivate: [NoAuthGuard] },
   {

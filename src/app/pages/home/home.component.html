@@ -30,10 +30,20 @@
     <hr class="my-4">
 	</div> <!-- end home-header-->
 
-	<div class="home-lists">
-	  <div class="list" *ngIf="list.length !== 0; else noList">
+	<div
+    class="home-lists" 
+    *ngIf="lists.length !== 0; else noList"
+  >
+    <div 
+      class="list" 
+      *ngFor="let list of lists"
+    >
       <div class="cover-content">
-      <img class="img cover-img" src="assets/images/re.jpg" alt=""/> 
+      <img 
+        class="img cover-img" 
+        [src]="url+'/image/'+list.photoList" 
+        [alt]="list.nameList"
+      /> 
       </div>
       <div class="cover-shadow">
         <a class="link-list" routerLink="/list"></a>
@@ -42,12 +52,13 @@
         </div>
       </div>
     </div>
-
-    <ng-template #noList>
-      <h4 class="center">{{ errorlist }}</h4> 
-    </ng-template>
-    
   </div> <!-- end home-lists-->
+  <ng-template #noList>
+    <div class="home-lists">
+      <h4 class="center">{{ errorlist }}</h4> 
+    </div>
+  </ng-template>
+
 </div>
 <div class="btn-add btn-circle" (click)="createLists()">
   <button class="btn">

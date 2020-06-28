@@ -12,4 +12,10 @@ export class ListService {
 
     return this._http.get(`${this.url}/lists`, { headers });
   }
+
+  addList(list) {
+    let headers = new HttpHeaders().set("Content-Type", "application/json");
+    let newList = JSON.stringify(list);
+    return this._http.post(`${this.url}/list`, newList, { headers });
+  }
 }

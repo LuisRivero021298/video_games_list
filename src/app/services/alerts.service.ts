@@ -15,17 +15,22 @@ export class AlertsService {
       confirmButtonText: "Cool",
     });
   }
-  createList() {
-    const { value: nameList } = Swal.fire({
-      title: "Enter list name",
-      input: "text",
-      inputValue: "",
-      showCancelButton: true,
-      inputValidator: (value) => {
-        if (!value) {
-          return "You need to write something!";
-        }
-      },
+  create() {
+    return new Promise(async (resolve, reject) => {
+      const { value: nameList } = await Swal.fire({
+        title: "Enter list name",
+        input: "text",
+        inputValue: "",
+        showCancelButton: true,
+        inputValidator: (value) => {
+          if (!value) {
+            return "You need to write something!";
+          }
+        },
+      });
+      if (nameList) {
+        return resolve(nameList);
+      }
     });
   }
 }
