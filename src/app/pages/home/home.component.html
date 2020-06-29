@@ -39,16 +39,27 @@
       *ngFor="let list of lists"
     >
       <div class="cover-content">
-      <img 
+      <img
+        *ngIf="list.photoList !== null"
         class="img cover-img" 
         [src]="url+'/image/'+list.photoList" 
         [alt]="list.nameList"
-      /> 
+      />
+      <img
+        *ngIf="list.photoList === null"
+        class="img cover-img"
+        src="assets/images/no-image.png"
+        alt="no-imagen"
+      />
       </div>
       <div class="cover-shadow">
-        <a class="link-list" routerLink="/list"></a>
+        <a 
+          class="link-list" 
+          [routerLink]="['/list', list.idList, list.nameList]"
+        >
+        </a>
         <div class="name-list">
-          <h4>Name List </h4>
+          <h4>{{ list.nameList }} </h4>
         </div>
       </div>
     </div>

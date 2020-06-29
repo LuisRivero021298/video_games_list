@@ -359,7 +359,7 @@ footer{
 		grid-template-rows: 1fr 150px;
 	}
 	.main{
-		min-height: 600px;
+		min-height: 665px;
 	}
 	.btn-session{
 		height: 48px;

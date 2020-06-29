@@ -54,9 +54,8 @@ export class HomeComponent implements OnInit {
   getLists() {
     const token = this._auth.readToken();
     this._list.getListsByUser(token).subscribe(
-      (resp) => {
-        console.log(resp);
-        //this.list = resp;
+      (resp: any) => {
+        this.lists = this.organizeListData(resp.data.response);
       },
       (err) => {
         this.errorlist = err.error.message;
@@ -74,8 +73,7 @@ export class HomeComponent implements OnInit {
           id_user: token,
         };
         this._list.addList(newList).subscribe(
-          (resp) => {
-            console.log(resp);
+          (resp: any) => {
             this._router.navigate(["list"], resp.data.id);
           },
           (err) => console.error(err)
@@ -86,5 +84,16 @@ export class HomeComponent implements OnInit {
 
   goEditProfile() {
     this._router.navigateByUrl("/edit-profile");
+  }
+
+  private organizeListData(resp: Array<any>) {
+    let data = [];
+
+    for (let i = 0; i < resp.length; i++) {
+      data.push(
+        new ListModel(resp[i].id_list, resp[i].name_list, resp[i].photo_list)
+      );
+    }
+    return data;
   }
 }
