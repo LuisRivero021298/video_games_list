@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, Validators, FormBuilder, FormArray } from "@angular/forms";
+import { GameModel } from "../../models/game.model";
 
 @Component({
   selector: "app-rating",
@@ -7,30 +8,19 @@ import { FormGroup, Validators, FormBuilder, FormArray } from "@angular/forms";
   styleUrls: [],
 })
 export class RatingComponent implements OnInit {
-  gamesList: Array<any>;
+  gamesList: Array<GameModel>;
   form: FormGroup;
 
   constructor(private _fb: FormBuilder) {
-    this.gamesList = [
-      {
-        idGame: 1,
-        nameGame: "Final Fantasy",
-      },
-      {
-        idGame: 2,
-        nameGame: "Dmc Devil may cry",
-      },
-    ];
+    this.gamesList = [new GameModel()];
   }
 
-  ngOnInit(): void {
-    this.formCreate();
-  }
+  ngOnInit(): void {}
 
   formCreate() {
     this.form = this._fb.group({
-      game: [""],
-      console: [""],
+      games: [""],
+      consoles: [""],
       rating: [""],
       finalized: [""],
     });
