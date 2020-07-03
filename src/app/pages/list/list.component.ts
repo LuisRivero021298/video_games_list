@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { AlertsService } from "../../services/alerts.service";
+import { ListService } from "../../services/list.service";
 import { RatingModel } from "../../models/rating.model";
 import { RatingService } from "../../services/rating.service";
 
@@ -22,7 +23,8 @@ export class ListComponent implements OnInit {
     private _router: Router,
     private _aRoute: ActivatedRoute,
     private _alert: AlertsService,
-    private _rating: RatingService
+    private _rating: RatingService,
+    private _list: ListService
   ) {
     this.ratings = [];
   }
@@ -30,7 +32,7 @@ export class ListComponent implements OnInit {
   ngOnInit(): void {
     this.screenSize.screenWidth = screen.height;
     this.screenSize.screenWidth = screen.width;
-    this.nameList = this._aRoute.snapshot.params.name_list;
+    this.getNameList();
     this.getAllRatings();
   }
 
@@ -46,22 +48,52 @@ export class ListComponent implements OnInit {
       }
     );
   }
+
+  goToCreateRating() {
+    const idList = this._aRoute.snapshot.params.id_list;
+    this._router.navigateByUrl(`/rating/${idList}`);
+  }
+
+  private getNameList() {
+    let id = this._aRoute.snapshot.params.id_list;
+    this._list.getList(id).subscribe(
+      (nameList: string) => {
+        this.nameList = nameList;
+      },
+      (err) => {
+        console.error(err);
+      }
+    );
+  }
+
   private organizeRatingData(resp: Array<any>) {
     let data = [];
-
+    let rating = {};
     for (let i = 0; i < resp.length; i++) {
-      data.push(
-        new RatingModel([
-          resp[i].id_rating,
-          resp[i].rate,
-          resp[i].id_game,
-          resp[i].name_game,
-          resp[i].photo,
-          resp[i].name_console,
-        ])
-      );
+      rating["idRating"] = resp[i].id_rating;
+      rating["rate"] = resp[i].rate;
+      rating["idGame"] = resp[i].id_game;
+      rating["nameGame"] = resp[i].name_game;
+      rating["photo"] = resp[i].photo;
+      rating["nameConsole"] = resp[i].name_console;
+
+      data.push(new RatingModel(rating));
     }
 
+    console.log(data);
     return data;
   }
 }
+
+/*
+ *idList: number;
+  idRating: number;
+  rate: number;
+  idGame: number;
+  idConsole: number;
+  finalized: number;
+  nameGame: string;
+  photo: string;
+  nameConsole: string;
+ *
+ * */

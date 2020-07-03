@@ -55,7 +55,7 @@
       <div class="cover-shadow">
         <a 
           class="link-list" 
-          [routerLink]="['/list', list.idList, list.nameList]"
+          [routerLink]="['/list', list.idList]"
         >
         </a>
         <div class="name-list">
@@ -71,9 +71,5 @@
   </ng-template>
 
 </div>
-<div class="btn-add btn-circle" (click)="createLists()">
-  <button class="btn">
-    <img class="material-icons md-30 md-light" src="assets/icons/add.svg" alt="icon-add">
-  </button>
-</div>
+<app-btn-add (click)="createLists()"></app-btn-add>
 

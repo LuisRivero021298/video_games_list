@@ -1,63 +1,95 @@
 <div class="rating-game page-base">
-    <div class="rating-header">
-        <div class="bcd">
-            <a routerLink="/home">
-                <img class="material-icons md-36 md-light" src="assets/icons/arrow_back-white.svg" alt="" />
-            </a>
-        </div>
-        <div class="nm">
-            <h1 class="center title-primary">
-                Add Game
-            </h1>
-            <hr class="my-4">
-
-        </div>
+  <div class="rating-header">
+    <div class="bcd">
+      <a routerLink="/home">
+        <img
+          class="material-icons md-36 md-light"
+          src="assets/icons/arrow_back-white.svg"
+          alt=""
+        />
+      </a>
     </div>
-    <div class="rating-body">
-        <form class="container">
-            <div class="form-group row">
-                <div class="col">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="inputGroupSelect01">Options</label>
-                        </div>
-                        <select class="custom-select" id="inputGroupSelect01">
-                            <option selected>Games</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
-                    </div>
-                </div> 
-            </div>
-            <div class="form-group row">
-                <div class="col">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="inputGroupSelect01">Options</label>
-                        </div>
-                        <select class="custom-select" id="inputGroupSelect01">
-                            <option selected>Consoles</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col">
-                    <input
-                        class="form-control"
-                        name=""
-                        type="text"
-                        placeholder="Rating"
-                    />
-                </div>
-            </div>
-            <button type="submit" class="btn btn-primary btn-large">
-                Add
-            </button>
-        </form>
+    <div class="nm">
+      <h1 class="center title-primary">
+        Add Game
+      </h1>
+      <hr class="my-4" />
     </div>
+  </div>
+  <div class="rating-body">
+    <form class="container">
+      <div class="form-group row">
+        <div class="col">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="selectGame"
+                >Options</label
+              >
+            </div>
+            <select class="custom-select" id="selectGame">
+              <option selected>Games</option>
+              <option 
+                *ngFor="let game of gamesList" 
+                [value]="game.idGame"
+              >
+              {{game.nameGame}}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="selectConsole"
+                >Options</label
+              >
+            </div>
+            <select class="custom-select" id="selectConsole">
+              <option selected>Consoles</option>
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <input
+            class="form-control"
+            name="rating"
+            type="text"
+            placeholder="Rating"
+          />
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="form-check form-check-inline">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="inlineRadioOptions"
+            id="inlineRadio1"
+            value="option1"
+          />
+          <label class="form-check-label" for="inlineRadio1">1</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="inlineRadioOptions"
+            id="inlineRadio2"
+            value="option2"
+          />
+          <label class="form-check-label" for="inlineRadio2">2</label>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary btn-large">
+        Add
+      </button>
+    </form>
+  </div>
 </div>

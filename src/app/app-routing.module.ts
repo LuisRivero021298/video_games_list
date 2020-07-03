@@ -13,14 +13,26 @@ import { EditProfileComponent } from "./pages/edit-profile/edit-profile.componen
 import { RatingComponent } from "./pages/rating/rating.component";
 
 let routes: Routes = [
-  { path: "home", component: HomeComponent, canActivate: [AuthGuard] },
   {
-    path: "list/:id_list/:name_list",
+    path: "home",
+    component: HomeComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "list/:id_list",
     component: ListComponent,
     canActivate: [AuthGuard],
   },
-  { path: "game", component: GameComponent, canActivate: [AuthGuard] },
-  { path: "login", component: LoginComponent, canActivate: [NoAuthGuard] },
+  {
+    path: "game",
+    component: GameComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "login",
+    component: LoginComponent,
+    canActivate: [NoAuthGuard],
+  },
   {
     path: "register",
     component: RegisterComponent,
@@ -31,7 +43,11 @@ let routes: Routes = [
     component: EditProfileComponent,
     canActivate: [AuthGuard],
   },
-  { path: "rating", component: RatingComponent, canActivate: [AuthGuard] },
+  {
+    path: "rating/:id_list",
+    component: RatingComponent,
+    canActivate: [AuthGuard],
+  },
   { path: "**", redirectTo: "login", pathMatch: "full" },
 ];
 

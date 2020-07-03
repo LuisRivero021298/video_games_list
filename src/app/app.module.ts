@@ -22,6 +22,7 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { ChartComponent } from "./components/chart/chart.component";
 import { EditProfileComponent } from "./pages/edit-profile/edit-profile.component";
 import { RatingComponent } from "./pages/rating/rating.component";
+import { BtnAddComponent } from './components/shared/btn-add/btn-add.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { RatingComponent } from "./pages/rating/rating.component";
     ChartComponent,
     EditProfileComponent,
     RatingComponent,
+    BtnAddComponent,
   ],
   imports: [
     BrowserModule,

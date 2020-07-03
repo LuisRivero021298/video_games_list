@@ -2,49 +2,42 @@
   <div class="list-header">
     <div class="bcd">
       <a routerLink="/home">
-          <img
-              [class.md-44] ="screenSize.screenWidth >= 700"
-              [class.md-36] ="screenSize.screenWidth < 700"
-              class="material-icons md-light"
-              src="assets/icons/arrow_back-white.svg" alt="" />
+        <img
+          [class.md-44]="screenSize.screenWidth >= 700"
+          [class.md-36]="screenSize.screenWidth < 700"
+          class="material-icons md-light"
+          src="assets/icons/arrow_back-white.svg"
+          alt=""
+        />
       </a>
     </div>
     <div class="nm">
       <h1 class="center title-primary">{{ nameList }}</h1>
-      <hr class="my-4">
-    </div> 
-    
+      <hr class="my-4" />
+    </div>
   </div>
-  <div 
-    class="list-body"
-    *ngIf="ratings.length !== 0; else noRatings"
-  >
-    <div 
-      class="game-body"
-      *ngFor="let rating of ratings"
-    >
+  <div class="list-body" *ngIf="ratings.length !== 0; else noRatings">
+    <div class="game-body" *ngFor="let rating of ratings">
       <div class="cover-content">
         <img
           *ngIf="rating.photo !== null"
-          class="img cover-img" 
-          [src]="url+'/image/'+rating.photo" 
+          class="img cover-img"
+          [src]="url + '/image/' + rating.photo"
           [alt]="rating.nameGame"
-        >
+        />
         <img
           *ngIf="rating.photo === null"
-          src="assets/images/no-image.png" 
+          src="assets/images/no-image.png"
           alt="no-imagen"
-        >
+        />
       </div>
       <div class="cover-shadow">
         <a class="link-game" routerLink="/game-detail"></a>
-
         <div class="name-game">
-          <h4>{{rating.nameGame}}-{{rating.rate}}</h4>
+          <h4>{{ rating.nameGame }}-{{ rating.rate }}</h4>
         </div>
       </div>
-    </div>    
-    
+    </div>
   </div>
 
   <ng-template #noRatings>
@@ -52,10 +45,6 @@
       <h4 class="center">Add ratings</h4>
     </div>
   </ng-template>
-  <div class="btn-add btn-circle">
-    <button class="btn">
-      <img class="material-icons md-30 md-light" src="assets/icons/add.svg" alt="">
-    </button>
-  </div>
 
-</div>
+  <app-btn-add (click)="goToCreateRating()"></app-btn-add>
+  </div>

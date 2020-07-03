@@ -74,7 +74,7 @@ export class HomeComponent implements OnInit {
         };
         this._list.addList(newList).subscribe(
           (resp: any) => {
-            this._router.navigate(["list"], resp.data.id);
+            this._router.navigateByUrl(`/list/${resp.data.id}`);
           },
           (err) => console.error(err)
         );
