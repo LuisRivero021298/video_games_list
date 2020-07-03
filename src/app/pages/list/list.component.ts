@@ -80,20 +80,7 @@ export class ListComponent implements OnInit {
       data.push(new RatingModel(rating));
     }
 
-    console.log(data);
     return data;
   }
 }
 
-/*
- *idList: number;
-  idRating: number;
-  rate: number;
-  idGame: number;
-  idConsole: number;
-  finalized: number;
-  nameGame: string;
-  photo: string;
-  nameConsole: string;
- *
- * */
