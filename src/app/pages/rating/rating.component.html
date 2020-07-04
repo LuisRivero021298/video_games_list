@@ -17,7 +17,7 @@
     </div>
   </div>
   <div class="rating-body">
-    <form [formGroup]="form" class="container">
+    <form [formGroup]="form" class="container" (submit)="createRating()">
       <div class="form-group row">
         <div class="col">
           <div class="input-group">
@@ -62,7 +62,7 @@
           <input
             class="form-control"
             name="rating"
-            type="text"
+            type="number"
             placeholder="Rating"
             formControlName="rating"
           />

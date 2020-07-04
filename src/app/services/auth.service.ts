@@ -4,16 +4,18 @@ import { UserModel } from "../models/user.model";
 import { Login } from "../interfaces/Login.interface";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
+import { GlobalService } from "./global.service";
 
 @Injectable({
   providedIn: "root",
 })
 export class AuthService {
-  url = "http://localhost:3000/api";
+  url: string;
   userToken: string;
 
-  constructor(private _http: HttpClient) {
+  constructor(private _http: HttpClient, private _g: GlobalService) {
     this.readToken();
+    this.url = this._g.getUrl();
   }
 
   getUser(idUser: string) {

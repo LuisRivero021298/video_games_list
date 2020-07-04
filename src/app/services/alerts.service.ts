@@ -15,6 +15,13 @@ export class AlertsService {
       confirmButtonText: "Cool",
     });
   }
+  success(message: string = "") {
+    Swal.fire({
+      icon: "success",
+      title: message,
+    });
+  }
+
   create() {
     return new Promise(async (resolve, reject) => {
       const { value: nameList } = await Swal.fire({
@@ -32,5 +39,18 @@ export class AlertsService {
         return resolve(nameList);
       }
     });
+  }
+
+  loading() {
+    Swal.fire({
+      allowOutsideClick: false,
+      title: "Loading...",
+      icon: "info",
+    });
+    Swal.showLoading();
+  }
+
+  closeAlert() {
+    Swal.close();
   }
 }
