@@ -1,13 +1,16 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { GlobalService } from "./global.service";
 
 @Injectable({
   providedIn: "root",
 })
 export class FilesService {
-  url = "http://localhost:3000/api";
+  url: string;
 
-  constructor(private _http: HttpClient) {}
+  constructor(private _http: HttpClient, private _g: GlobalService) {
+    this.url = this._g.getUrl();
+  }
 
   uploadFile(file) {
     console.log(file);

@@ -1,13 +1,16 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { map } from "rxjs/operators";
+import { GlobalService } from "./global.service";
 
 @Injectable({
   providedIn: "root",
 })
 export class ListService {
-  constructor(private _http: HttpClient) {}
-  url = "http://localhost:3000/api";
+  url: string;
+  constructor(private _http: HttpClient, private _g: GlobalService) {
+    this.url = this._g.getUrl();
+  }
 
   getListsByUser(idUser: string) {
     let headers = new HttpHeaders().set("x-access-token", idUser);

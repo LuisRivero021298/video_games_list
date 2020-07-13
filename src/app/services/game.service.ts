@@ -7,10 +7,13 @@ import { map } from "rxjs/operators";
   providedIn: "root",
 })
 export class GameService {
-  constructor(private _http: HttpClient, private _g: GlobalService) {}
+  url: string;
+  constructor(private _http: HttpClient, private _g: GlobalService) {
+    this.url = this._g.getUrl();
+  }
 
   allGames() {
-    return this._http.get(`${this._g.getUrl()}/games`).pipe(
+    return this._http.get(`${this.url}/games`).pipe(
       map((games: object) => {
         return games["data"].games;
       })

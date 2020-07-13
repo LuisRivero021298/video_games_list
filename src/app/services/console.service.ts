@@ -7,10 +7,13 @@ import { map } from "rxjs/operators";
   providedIn: "root",
 })
 export class ConsoleService {
-  constructor(private _http: HttpClient, private _g: GlobalService) {}
+  url: string;
+  constructor(private _http: HttpClient, private _g: GlobalService) {
+    this.url = this._g.getUrl();
+  }
 
   allConsoles() {
-    return this._http.get(`${this._g.getUrl()}/consoles`).pipe(
+    return this._http.get(`${this.url}/consoles`).pipe(
       map((consoles: object) => {
         return consoles["data"].consoles;
       })

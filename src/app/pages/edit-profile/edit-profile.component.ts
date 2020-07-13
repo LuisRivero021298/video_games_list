@@ -38,6 +38,10 @@ export class EditProfileComponent implements OnInit {
     });
   }
 
+  editUser(userEdit: UserModel) {
+    const idUser = localStorage.getItem("token");
+  }
+
   private getBirthday() {
     let birthdate = localStorage.getItem("birthdate");
     let [birth] = birthdate.split("T");

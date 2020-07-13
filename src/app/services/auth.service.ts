@@ -21,7 +21,7 @@ export class AuthService {
   getUser(idUser: string): Observable<any> {
     let headers = new HttpHeaders().set("x-access-token", idUser);
     return this._http
-      .get<any>(this.url + "/profile", { headers })
+      .get<any>(`${this.url}/profile`, { headers })
       .pipe(
         map((resp) => {
           this.saveUser(
@@ -39,7 +39,7 @@ export class AuthService {
     let headers = new HttpHeaders().set("Content-Type", "application/json");
 
     return this._http
-      .post<any>(this.url + "/register", newU, { headers })
+      .post<any>(`${this.url}/register`, newU, { headers })
       .pipe(
         map((resp) => {
           this.saveToken(resp.data.token, resp.data.expireIn);
@@ -52,7 +52,7 @@ export class AuthService {
     let log = JSON.stringify(userLogin);
     let headers = new HttpHeaders().set("Content-Type", "application/json");
     return this._http
-      .post<any>(this.url + "/signin", log, { headers })
+      .post<any>(`${this.url}/signin`, log, { headers })
       .pipe(
         map((resp) => {
           console.log(resp.data);
@@ -65,6 +65,9 @@ export class AuthService {
   logOut() {
     localStorage.removeItem("token");
     localStorage.removeItem("expireIn");
+    localStorage.removeItem("username");
+    localStorage.removeItem("birthdate");
+    localStorage.removeItem("photo");
   }
 
   readToken() {
