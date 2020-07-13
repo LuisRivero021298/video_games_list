@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Location } from "@angular/common";
 import { FormGroup, Validators, FormBuilder, FormArray } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { GameModel } from "../../models/game.model";
@@ -22,6 +23,7 @@ export class RatingComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _game: GameService,
+    private _location: Location,
     private _consoles: ConsoleService,
     private _aRoute: ActivatedRoute,
     private _rating: RatingService,
@@ -59,6 +61,7 @@ export class RatingComponent implements OnInit {
       (resp) => {
         this._alert.closeAlert();
         this._alert.success("rating created successfully");
+        this.resetForm();
       },
       (err) => {
         this._alert.error(`Rating Don't create`);
@@ -83,7 +86,12 @@ export class RatingComponent implements OnInit {
       (err) => console.log(err)
     );
   }
-
+  backClick() {
+    this._location.back();
+  }
+  private resetForm() {
+    this.form.reset();
+  }
   private organizeGameData(data: Array<object>) {
     let newData = [];
     let game = {};

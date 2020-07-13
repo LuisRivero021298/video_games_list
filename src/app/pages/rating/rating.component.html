@@ -1,7 +1,7 @@
 <div class="rating-game page-base">
   <div class="rating-header">
     <div class="bcd">
-      <a routerLink="/home">
+      <a (click)="backClick()">
         <img
           class="material-icons md-36 md-light"
           src="assets/icons/arrow_back-white.svg"
@@ -101,7 +101,4 @@
       </button>
     </form>
   </div>
-  <pre>
-    {{ form.value | json }}
-  </pre>
 </div>

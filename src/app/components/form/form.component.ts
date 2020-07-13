@@ -12,7 +12,7 @@ import { NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
 })
 export class FormComponent implements OnInit {
   @Input() page: Page;
-  @Input() user: any;
+  @Input() user: UserModel;
   @Input() screenSize;
 
   @Output() vForm: EventEmitter<Array<any>>;
@@ -64,8 +64,8 @@ export class FormComponent implements OnInit {
       });
     } else {
       this.form = this._fb.group({
-        username: ["", [this.valid[0], this.valid[2]]],
-        birthdate: ["", this.valid[0]],
+        username: [this.user.username, [this.valid[0], this.valid[1]]],
+        birthdate: [this.user.birthdate, this.valid[0]],
         photo: [""],
       });
     }
@@ -80,10 +80,6 @@ export class FormComponent implements OnInit {
     if (this.page.page === "login") {
       this.form.reset(this.user);
       this.form.controls["remember"].setValue(this.page.rememberUser);
-    }
-
-    if (this.page.page === "edit") {
-      this.form.reset(this.user);
     }
   }
 

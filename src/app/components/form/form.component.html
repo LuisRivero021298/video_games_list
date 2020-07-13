@@ -1,152 +1,152 @@
-<form class="container needs-validation" novalidate [formGroup]="form" (ngSubmit)="validateForm()">
-	
-  <div 
+<form
+  class="container needs-validation"
+  novalidate
+  [formGroup]="form"
+  (ngSubmit)="validateForm()"
+>
+  <div
     class="form-group row"
-    *ngIf="page.page === 'register' || page.page === 'edit'" 
+    *ngIf="page.page === 'register' || page.page === 'edit'"
   >
     <div class="col">
-      <input 
-        class="form-control form-control-lg" 
-      	id="username" 
-      	type="text" 
-				formControlName="username"
+      <input
+        class="form-control form-control-lg"
+        id="username"
+        type="text"
+        formControlName="username"
         placeholder="Username"
-        [class.is-invalid]="usernameInvalid" 
-        [class.form-control-lg] = "
+        [class.is-invalid]="usernameInvalid"
+        [class.form-control-lg]="
           screenSize.screenWidth >= 350 &&
           screenSize.screenWidth < 740 &&
           screenSize.screenHeigth > 700
         "
-      >
+      />
       <small *ngIf="usernameInvalid" class="text-danger">
-              Enter a valid Username
+        Enter a valid Username
       </small>
     </div>
-    
-	</div> <!-- USERNAME !-->
+  </div>
+  <!-- USERNAME !-->
 
-	<div 
-    class="form-group row" 
-      *ngIf="page.page !== 'edit'"
-  > 
+  <div class="form-group row" *ngIf="page.page !== 'edit'">
     <div class="col">
-      <input 
-        class="form-control" 
-        id="email" 
+      <input
+        class="form-control"
+        id="email"
         type="text"
         formControlName="email"
-        placeholder="Email" 
+        placeholder="Email"
         [class.is-invalid]="emailInvalid"
-        [class.form-control-lg] = "
+        [class.form-control-lg]="
           screenSize.screenWidth >= 350 &&
           screenSize.screenWidth < 740 &&
           screenSize.screenHeigth > 630
         "
-      >
+      />
       <small *ngIf="emailInvalid" class="text-danger">
-              Enter a valid Email
+        Enter a valid Email
       </small>
     </div>
-	</div> <!-- Email !-->
+  </div>
+  <!-- Email !-->
 
-  <div 
-    class="form-group row"
-      *ngIf="page.page !== 'edit'"
-  >
+  <div class="form-group row" *ngIf="page.page !== 'edit'">
     <div class="col">
-      <input 
-        class="form-control" 
-      	id="password" 
-      	type="password" 
-				formControlName="password"
-        placeholder="Password" 
+      <input
+        class="form-control"
+        id="password"
+        type="password"
+        formControlName="password"
+        placeholder="Password"
         [class.is-invalid]="passwordInvalid"
-        [class.form-control-lg] = "
+        [class.form-control-lg]="
           screenSize.screenWidth >= 350 &&
           screenSize.screenWidth < 740 &&
           screenSize.screenHeigth > 630
         "
-      >
+      />
       <small *ngIf="passwordInvalid" class="text-danger">
-              Enter a valid Password
+        Enter a valid Password
       </small>
     </div>
-  </div> <!-- Password !-->
-	 
+  </div>
+  <!-- Password !-->
 
-	<div 
-    class="form-group row" 
-    *ngIf="page.page !== 'login'"
-  >
+  <div class="form-group row" *ngIf="page.page !== 'login'">
     <div class="input-group col">
-      <input 
-        class="form-control form-control-lg" 
+      <input
+        class="form-control form-control-lg"
         placeholder="Birthdate"
-        name="birthdate"  
-        ngbDatepicker 
+        name="birthdate"
+        ngbDatepicker
         #d="ngbDatepicker"
         formControlName="birthdate"
         [class.is-invalid]="birthdateInvalid"
-        [class.form-control-lg] = "
+        [class.form-control-lg]="
           screenSize.screenWidth >= 350 &&
           screenSize.screenWidth < 740 &&
           screenSize.screenHeigth > 630
         "
-      >
+      />
       <div class="input-group-append">
-        <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+        <button
+          class="btn btn-outline-secondary calendar"
+          (click)="d.toggle()"
+          type="button"
+        >
           <i class="material-icons small">calendar_today</i>
         </button>
       </div>
       <small *ngIf="birthdateInvalid" class="text-danger">
-              Enter a valid birthdate
+        Enter a valid birthdate
       </small>
     </div>
-	</div> <!-- Birthdate !-->
+  </div>
+  <!-- Birthdate !-->
 
-  <div 
-    class="form-group custom-file" 
+  <div
+    class="form-group custom-file"
     *ngIf="page.page === 'register' || page.page === 'edit'"
-    [class.form-control-lg] = "
+    [class.form-control-lg]="
       screenSize.screenWidth >= 350 &&
       screenSize.screenWidth < 740 &&
       screenSize.screenHeigth > 630
     "
   >
-    <input 
-      type="file" 
-      class="custom-file-input" 
-      id="customFile" 
+    <input
+      type="file"
+      class="custom-file-input"
+      id="customFile"
       formControlName="photo"
       (change)="onFileChange($event)"
-    > 
+    />
 
     <label class="custom-file-label" for="customFile">Choose photo</label>
-  </div> <!-- file !-->
+  </div>
+  <!-- file !-->
 
-	<div class="form-group row">
+  <div class="form-group row">
     <div class="col">
-      <button
-        type="submit"
-        class="btn btn-primary btn-large"
-      >
-          {{ page.action }}
+      <button type="submit" class="btn btn-primary btn-large">
+        {{ page.action }}
       </button>
     </div>
-	</div><!-- Button !-->
+  </div>
+  <!-- Button !-->
 
-	<div class="form-group">
+  <div class="form-group">
     <div class="form-check" *ngIf="page.page === 'login'">
-      <input 
-        id="remember"  
-        name="remember" 
+      <input
+        id="remember"
+        name="remember"
         formControlName="remember"
-        class="form-check-input" 
-        type="checkbox" 
-      >
+        class="form-check-input"
+        type="checkbox"
+      />
       <label class="form-check-label" for="inlineRadio2">Remember</label>
     </div>
-    
+
     <a routerLink="/login" class="txt1 center" *ngIf="page.page === 'register'">
       You have an account? / Log in
     </a>
@@ -154,5 +154,4 @@
       You don't have an account? / Sign up
     </a>
   </div>
-
 </form>

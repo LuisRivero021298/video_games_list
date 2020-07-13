@@ -18,12 +18,17 @@ export class AuthService {
     this.url = this._g.getUrl();
   }
 
-  getUser(idUser: string) {
+  getUser(idUser: string): Observable<any> {
     let headers = new HttpHeaders().set("x-access-token", idUser);
     return this._http
       .get<any>(this.url + "/profile", { headers })
       .pipe(
         map((resp) => {
+          this.saveUser(
+            resp.data.response[0].username,
+            resp.data.response[0].photo,
+            resp.data.response[0].birthdate
+          );
           return resp.data.response[0];
         })
       );
@@ -95,6 +100,12 @@ export class AuthService {
     localStorage.setItem("token", idToken);
 
     this.tokenExpireIn(expireIn);
+  }
+
+  private saveUser(username: string, photo: string, birthdate: string) {
+    localStorage.setItem("username", username);
+    localStorage.setItem("photo", photo);
+    localStorage.setItem("birthdate", birthdate);
   }
 
   private tokenExpireIn(expireIn: number) {
