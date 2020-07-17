@@ -37,39 +37,14 @@ export class FormComponent implements OnInit {
 
   formCreate() {
     if (this.page.page === "register") {
-      this.form = this._fb.group(
-        {
-          username: [
-            "",
-            [
-              this.valid[0],
-              this.valid[1],
-              //this._validator.userExists
-            ],
-          ],
-          email: ["", [this.valid[0], this.valid[2]]],
-          password: ["", [this.valid[0], this.valid[1]]],
-          birthdate: ["", [this.valid[0]]],
-          photo: [""],
-        },
-        {
-          validateDateExist: this._validator.dateExists("birthdate"),
-        }
-      );
+      this.formRegister();
     } else if (this.page.page === "login") {
-      this.form = this._fb.group({
-        email: ["", [this.valid[0], this.valid[2]]],
-        password: ["", [this.valid[0], this.valid[1]]],
-        remember: [""],
-      });
+      this.formLogin();
     } else {
-      this.form = this._fb.group({
-        username: [this.user.username, [this.valid[0], this.valid[1]]],
-        birthdate: [this.user.birthdate, this.valid[0]],
-        photo: [""],
-      });
+      this.formEdit();
     }
   }
+
   validateForm() {
     this.form.invalid
       ? this.showInvalids(this.form)
@@ -83,7 +58,11 @@ export class FormComponent implements OnInit {
     }
   }
 
-  showInvalids(validate: FormGroup) {
+  onFileChange(e) {
+    this.file = e.target.files;
+  }
+
+  private showInvalids(validate: FormGroup) {
     if (validate.invalid) {
       return Object.values(validate.controls).forEach((control) => {
         if (control instanceof FormGroup) {
@@ -97,8 +76,30 @@ export class FormComponent implements OnInit {
     }
   }
 
-  onFileChange(e) {
-    this.file = e.target.files;
+  private formRegister() {
+    this.form = this._fb.group({
+      username: ["", [this.valid[0], this.valid[1]]],
+      email: ["", [this.valid[0], this.valid[2]]],
+      password: ["", [this.valid[0], this.valid[1]]],
+      birthdate: ["", [this.valid[0]]],
+      photo: [""],
+    });
+  }
+
+  private formLogin() {
+    this.form = this._fb.group({
+      email: ["", [this.valid[0], this.valid[2]]],
+      password: ["", [this.valid[0], this.valid[1]]],
+      remember: [""],
+    });
+  }
+
+  private formEdit() {
+    this.form = this._fb.group({
+      username: [this.user.username, [this.valid[0], this.valid[1]]],
+      birthdate: [this.user.birthdate, this.valid[0]],
+      photo: [""],
+    });
   }
 
   get usernameEmpty() {

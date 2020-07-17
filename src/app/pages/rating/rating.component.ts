@@ -4,6 +4,7 @@ import { FormGroup, Validators, FormBuilder, FormArray } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { GameModel } from "../../models/game.model";
 import { ConsoleModel } from "../../models/console.model";
+import { ListService } from "../../services/list.service";
 import { GameService } from "../../services/game.service";
 import { ConsoleService } from "../../services/console.service";
 import { RatingService } from "../../services/rating.service";
@@ -23,14 +24,15 @@ export class RatingComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _game: GameService,
+    private _list: ListService,
     private _location: Location,
     private _consoles: ConsoleService,
     private _aRoute: ActivatedRoute,
     private _rating: RatingService,
     private _alert: AlertsService
   ) {
-    this.gamesList = [new GameModel()];
-    this.consolesList = [new ConsoleModel()];
+    this.gamesList = [new GameModel({})];
+    this.consolesList = [new ConsoleModel({})];
     this.formCreate();
     this.getAllGames();
     this.getAllConsoles();
@@ -59,13 +61,12 @@ export class RatingComponent implements OnInit {
 
     this._rating.createNewRating(this.rating).subscribe(
       (resp) => {
+        this.savePhotoList(this.form.value.games, idList);
         this._alert.closeAlert();
         this._alert.success("rating created successfully");
         this.resetForm();
       },
-      (err) => {
-        this._alert.error(`Rating Don't create`);
-      }
+      () => this._alert.error(`Rating Don't create`)
     );
   }
 
@@ -86,12 +87,27 @@ export class RatingComponent implements OnInit {
       (err) => console.log(err)
     );
   }
+
   backClick() {
     this._location.back();
   }
+
+  private savePhotoList(idGame: number, idList: number) {
+    let gameSelected = this.gamesList.find((game) => game.idGame === idGame);
+    const newImage = {
+      photo: gameSelected.photo,
+      id_list: idList,
+    };
+    this._list.addListImage(newImage).subscribe(
+      () => true,
+      () => false
+    );
+  }
+
   private resetForm() {
     this.form.reset();
   }
+
   private organizeGameData(data: Array<object>) {
     let newData = [];
     let game = {};
@@ -99,7 +115,7 @@ export class RatingComponent implements OnInit {
     for (let i = 0; i < data.length; i++) {
       game["idGame"] = data[i]["id_game"];
       game["nameGame"] = data[i]["name_game"];
-
+      game["photo"] = data[i]["photo"];
       newData.push(new GameModel(game));
     }
 

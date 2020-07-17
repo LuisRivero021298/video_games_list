@@ -4,12 +4,15 @@ export class ConsoleModel {
   dateRelease: string;
   dateDiscontinued: string;
 
-  constructor(vConsole: object = {}) {
-    this.idConsole = vConsole["idConsole"] ? vConsole["idConsole"] : null;
-    this.nameConsole = vConsole["nameConsole"] ? vConsole["nameConsole"] : null;
-    this.dateRelease = vConsole["dateRelease"] ? vConsole["dateRelease"] : null;
-    this.dateDiscontinued = vConsole["dateDiscontinued"]
-      ? vConsole["dateDiscontinued"]
-      : null;
+  constructor({
+    idConsole = null,
+    nameConsole = null,
+    dateRelease = null,
+    dateDiscontinued = null,
+  }) {
+    this.idConsole = idConsole;
+    this.nameConsole = nameConsole;
+    this.dateRelease = dateRelease;
+    this.dateDiscontinued = dateDiscontinued;
   }
 }

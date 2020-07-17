@@ -9,7 +9,7 @@ export class RatingModel {
   photo: string;
   nameConsole: string;
 
-  constructor(rating: object = {}) {
+  /*constructor(rating: object = {}) {
     this.idList = rating["idList"] ? rating["idList"] : null;
     this.idRating = rating["idRating"] ? rating["idRating"] : null;
     this.rate = rating["rate"] ? rating["rate"] : null;
@@ -19,5 +19,27 @@ export class RatingModel {
     this.photo = rating["photo"] ? rating["photo"] : null;
     this.nameConsole = rating["nameConsole"] ? rating["nameConsole"] : null;
     this.finalized = rating["finalized"] ? rating["finalized"] : null;
+  }*/
+
+  constructor({
+    idList = null,
+    idRating = null,
+    rate = null,
+    idGame = null,
+    idConsole = null,
+    finalized = null,
+    nameGame = null,
+    photo = null,
+    nameConsole = null,
+  }) {
+    this.idList = idList;
+    this.idRating = idRating;
+    this.rate = rate;
+    this.idGame = idGame;
+    this.idConsole = idConsole;
+    this.finalized = finalized;
+    this.nameGame = nameGame;
+    this.photo = photo;
+    this.nameConsole = nameConsole;
   }
 }

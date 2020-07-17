@@ -558,7 +558,8 @@ footer{
     width: 90%;
     margin: 0 auto;
   }
-  .edit-header .nm {
+  .edit-header .nm,
+  .rating-header .nm {
     width: 500px;
     border: 3px solid rgba(116, 84, 201, 0.4);
     border-bottom: 0;
