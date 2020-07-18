@@ -38,9 +38,9 @@ export class LoginComponent implements OnInit {
   }
 
   login(vForm) {
-    this.user.email = vForm[0].email;
-    this.user.password = vForm[0].password;
-    this.page.rememberUser = vForm[0].remember;
+    this.user.email = vForm.email;
+    this.user.password = vForm.password;
+    this.page.rememberUser = vForm.remember;
 
     this._auth.login(this.user).subscribe(
       (data: any) => {
@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
         this._router.navigate(["/home"]);
       },
       (err: any) => {
-        alert(err);
+        console.log(err);
         //this._alert.errorMessage(err,'Failed to authenticate');
       }
     );

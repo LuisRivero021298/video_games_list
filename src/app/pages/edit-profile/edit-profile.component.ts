@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Page } from "../../interfaces/Page.interface";
 import { UserModel } from "../../models/user.model";
 import { AuthService } from "src/app/services/auth.service";
+import { FilesService } from "src/app/services/files.service";
 @Component({
   selector: "app-edit-profile",
   templateUrl: "./edit-profile.component.html",
@@ -14,7 +15,7 @@ export class EditProfileComponent implements OnInit {
     screenWidth: 0,
     screenHeigth: 0,
   };
-  constructor(private _auth: AuthService) {
+  constructor(private _auth: AuthService, private _files: FilesService) {
     this.page = {
       title: "Edit Profile",
       action: "Edit Profile",
@@ -38,8 +39,23 @@ export class EditProfileComponent implements OnInit {
     });
   }
 
-  editUser(userEdit: UserModel) {
+  async editUser(vForm: any) {
     const idUser = localStorage.getItem("token");
+
+    let data = vForm;
+    this.user = data;
+
+    if (this.user.photo === "") {
+      this.user.photo = localStorage.getItem("photo");
+    }
+    console.log(data);
+
+    this._auth.updateUser(this.user, idUser).subscribe(
+      (r) => {
+        this._auth.saveUserInStorage(data.username, data.photo, data.birthdate);
+      },
+      (e) => console.error(e)
+    );
   }
 
   private getBirthday() {

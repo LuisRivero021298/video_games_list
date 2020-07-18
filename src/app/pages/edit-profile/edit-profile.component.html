@@ -11,6 +11,6 @@
 		</div>
 	</div>
 	<div class="edit-body">
-		<app-form [page]="page" [user]="user" [screenSize]="screenSize"></app-form>
+		<app-form [page]="page" [user]="user" [screenSize]="screenSize" (vForm)="editUser($event)"></app-form>
 	</div>
 </div>

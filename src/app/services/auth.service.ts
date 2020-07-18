@@ -24,7 +24,7 @@ export class AuthService {
       .get<any>(`${this.url}/profile`, { headers })
       .pipe(
         map((resp) => {
-          this.saveUser(
+          this.saveUserInStorage(
             resp.data.response[0].username,
             resp.data.response[0].photo,
             resp.data.response[0].birthdate
@@ -34,18 +34,25 @@ export class AuthService {
       );
   }
 
+  saveUserInStorage(username: string, photo: string, birthdate: string) {
+    localStorage.setItem("username", username);
+    localStorage.setItem("photo", photo);
+    localStorage.setItem("birthdate", birthdate);
+  }
+
   newUser(newUser: UserModel): Observable<any> {
     let newU = JSON.stringify(newUser);
     let headers = new HttpHeaders().set("Content-Type", "application/json");
 
-    return this._http
-      .post<any>(`${this.url}/register`, newU, { headers })
-      .pipe(
-        map((resp) => {
-          this.saveToken(resp.data.token, resp.data.expireIn);
-          return resp;
-        })
-      );
+    return this._http.post<any>(`${this.url}/register`, newU, { headers });
+  }
+
+  updateUser(updateUser: UserModel, idUser: string): Observable<any> {
+    let user = JSON.stringify(updateUser);
+    let headers = new HttpHeaders()
+      .set("Content-Type", "application/json")
+      .set("x-access-token", idUser);
+    return this._http.put(`${this.url}/update`, user, { headers });
   }
 
   login(userLogin: Login): Observable<any> {
@@ -103,12 +110,6 @@ export class AuthService {
     localStorage.setItem("token", idToken);
 
     this.tokenExpireIn(expireIn);
-  }
-
-  private saveUser(username: string, photo: string, birthdate: string) {
-    localStorage.setItem("username", username);
-    localStorage.setItem("photo", photo);
-    localStorage.setItem("birthdate", birthdate);
   }
 
   private tokenExpireIn(expireIn: number) {

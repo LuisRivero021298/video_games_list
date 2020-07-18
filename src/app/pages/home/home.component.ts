@@ -6,6 +6,7 @@ import { ListModel } from "../../models/list.model";
 import { Router } from "@angular/router";
 import { AlertsService } from "../../services/alerts.service";
 import Swal from "sweetalert2";
+import { GlobalService } from "src/app/services/global.service";
 
 @Component({
   selector: "app-home",
@@ -16,14 +17,16 @@ export class HomeComponent implements OnInit {
   profile: UserModel;
   lists: Array<ListModel>;
   errorlist: string;
-  url = "http://localhost:3000/api";
+  url: string;
 
   constructor(
+    private _g: GlobalService,
     private _auth: AuthService,
     private _router: Router,
     private _list: ListService,
     private _alert: AlertsService
   ) {
+    this.url = this._g.getUrl();
     this.profile = new UserModel({
       username: "",
       email: "",
@@ -55,6 +58,7 @@ export class HomeComponent implements OnInit {
     const token = this._auth.readToken();
     this._list.getListsByUser(token).subscribe(
       (resp: any) => {
+        console.log(resp);
         this.lists = this.organizeListData(resp.data.response);
       },
       (err) => {
@@ -74,7 +78,7 @@ export class HomeComponent implements OnInit {
         };
         this._list.addList(newList).subscribe(
           (resp: any) => {
-            this._router.navigateByUrl(`/list/${resp.data.id}`);
+            this._router.navigateByUrl(`/list/${resp.data[0].id}`);
           },
           (err) => console.error(err)
         );

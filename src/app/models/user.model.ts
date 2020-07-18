@@ -1,4 +1,5 @@
 export class UserModel {
+  id: string;
   username: string;
   email: string;
   password: string;
@@ -6,12 +7,14 @@ export class UserModel {
   birthdate: string;
 
   constructor({
+    id = null,
     username = null,
     email = null,
     password = null,
     photo = null,
     birthdate = null,
   }) {
+    this.id = id;
     this.username = username;
     this.email = email;
     this.password = password;

@@ -4,6 +4,7 @@ import { ValidatorsService } from "../../services/validators.service";
 import { Page } from "../../interfaces/Page.interface";
 import { UserModel } from "../../models/user.model";
 import { NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
+import { FilesService } from "src/app/services/files.service";
 
 @Component({
   selector: "app-form",
@@ -15,13 +16,17 @@ export class FormComponent implements OnInit {
   @Input() user: UserModel;
   @Input() screenSize;
 
-  @Output() vForm: EventEmitter<Array<any>>;
+  @Output() vForm: EventEmitter<any>;
 
   form: FormGroup;
   valid: Array<Validators> = [];
   file: Array<File>;
 
-  constructor(private _fb: FormBuilder, private _validator: ValidatorsService) {
+  constructor(
+    private _fb: FormBuilder,
+    private _files: FilesService,
+    private _validator: ValidatorsService
+  ) {
     this.valid = [
       Validators.required,
       Validators.minLength(3),
@@ -46,9 +51,7 @@ export class FormComponent implements OnInit {
   }
 
   validateForm() {
-    this.form.invalid
-      ? this.showInvalids(this.form)
-      : this.vForm.emit([this.form.value, this.file]);
+    this.form.invalid ? this.showInvalids(this.form) : this.sendData();
   }
 
   loadData() {
@@ -58,8 +61,53 @@ export class FormComponent implements OnInit {
     }
   }
 
+  async sendData() {
+    if (this.file) {
+      let fileUploaded = await this.uploadFile(this.file);
+
+      if (fileUploaded === "err") {
+        alert("No submit image");
+        return;
+      }
+
+      this.form.value.photo = fileUploaded;
+    }
+
+    if (this.form.value.birthdate) {
+      this.form.value.birthdate = this.formatDate(this.form.value.birthdate);
+    }
+
+    this.vForm.emit(this.form.value);
+  }
+
+  uploadFile(file) {
+    return new Promise((resolve, reject) => {
+      let formData = new FormData();
+      for (let i = 0; i < file.length; i++) {
+        formData.append("file0", file[i], file[i].name);
+      }
+
+      this._files.uploadFile(formData).subscribe(
+        (resp: any) => {
+          return resolve(resp.data.fileComplete);
+        },
+        (err) => {
+          console.log(err);
+          reject("err");
+        }
+      );
+    });
+  }
+
   onFileChange(e) {
     this.file = e.target.files;
+  }
+
+  private formatDate(date) {
+    let formatDate = "";
+    formatDate = Object.values(date).join("-");
+
+    return formatDate;
   }
 
   private showInvalids(validate: FormGroup) {

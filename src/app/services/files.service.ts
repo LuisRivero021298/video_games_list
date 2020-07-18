@@ -13,7 +13,6 @@ export class FilesService {
   }
 
   uploadFile(file) {
-    console.log(file);
     let headers = new HttpHeaders().set("Content-Type", "form-data");
     return this._http.post(`${this.url}/upload-image`, file);
   }
