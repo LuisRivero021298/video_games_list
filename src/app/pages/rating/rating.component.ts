@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Location } from "@angular/common";
-import { FormGroup, Validators, FormBuilder, FormArray } from "@angular/forms";
-import { Router, ActivatedRoute } from "@angular/router";
+import { FormGroup, Validators, FormBuilder } from "@angular/forms";
+import { RatingValidator } from "../../validators/app.validator";
+import { ActivatedRoute } from "@angular/router";
 import { GameModel } from "../../models/game.model";
 import { ConsoleModel } from "../../models/console.model";
 import { ListService } from "../../services/list.service";
@@ -41,12 +42,21 @@ export class RatingComponent implements OnInit {
   ngOnInit(): void {}
 
   formCreate() {
-    this.form = this._fb.group({
-      games: [null],
-      consoles: [null],
-      rating: [null],
-      finalized: [null],
-    });
+    this.form = this._fb.group(
+      {
+        games: [null, [Validators.required]],
+        consoles: [null, [Validators.required]],
+        rating: [null, [Validators.required]],
+        finalized: [null, [Validators.required]],
+      },
+      {
+        validators: RatingValidator,
+      }
+    );
+  }
+
+  validateForm() {
+    this.form.invalid ? this.showInvalids(this.form) : this.createRating();
   }
 
   createRating() {
@@ -93,15 +103,29 @@ export class RatingComponent implements OnInit {
   }
 
   private savePhotoList(idGame: number, idList: number) {
-    const gameSelected = this.gamesList.find((game) => game.idGame === idGame);
+    const { photo } = this.gamesList.find((game) => game.idGame === idGame);
     const newImage = {
-      photo: gameSelected.photo,
+      photo,
       id_list: idList,
     };
     this._list.addListImage(newImage).subscribe(
       () => true,
       () => false
     );
+  }
+
+  private showInvalids(validate: FormGroup) {
+    if (validate.invalid) {
+      return Object.values(validate.controls).forEach((control) => {
+        if (control instanceof FormGroup) {
+          Object.values(control.controls).forEach((control) => {
+            control.markAsTouched();
+          });
+        } else {
+          control.markAsTouched();
+        }
+      });
+    }
   }
 
   private resetForm() {
@@ -134,5 +158,29 @@ export class RatingComponent implements OnInit {
     }
 
     return newData;
+  }
+
+  get gameInvalid() {
+    return this.form.get("games").invalid && this.form.get("games").touched;
+  }
+
+  get consoleInvalid() {
+    return (
+      this.form.get("consoles").invalid && this.form.get("consoles").touched
+    );
+  }
+
+  get ratingInvalid() {
+    return this.form.get("rating").invalid && this.form.get("rating").touched;
+  }
+
+  get ratingInvalidValue(): boolean {
+    return this.form.hasError("invalidRating") && this.form.get("rating").dirty;
+  }
+
+  get finalizedInvalid() {
+    return (
+      this.form.get("finalized").invalid && this.form.get("finalized").touched
+    );
   }
 }

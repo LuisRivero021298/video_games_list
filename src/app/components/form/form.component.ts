@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { FormGroup, Validators, FormBuilder, FormArray } from "@angular/forms";
-import { ValidatorsService } from "../../services/validators.service";
 import { Page } from "../../interfaces/Page.interface";
 import { UserModel } from "../../models/user.model";
 import { NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
@@ -14,24 +13,27 @@ import { FilesService } from "src/app/services/files.service";
 export class FormComponent implements OnInit {
   @Input() page: Page;
   @Input() user: UserModel;
-  @Input() screenSize;
+  @Input() screenSize: any;
 
   @Output() vForm: EventEmitter<object>;
 
   form: FormGroup;
-  valid: Array<Validators> = [];
+  validEmail: Validators;
   file: Array<File>;
+  validate: Array<any>;
 
-  constructor(
-    private _fb: FormBuilder,
-    private _files: FilesService,
-    private _validator: ValidatorsService
-  ) {
-    this.valid = [
-      Validators.required,
-      Validators.minLength(3),
-      Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$"),
+  constructor(private _fb: FormBuilder, private _files: FilesService) {
+    this.validEmail = Validators.pattern(
+      "[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$"
+    );
+
+    //0. Valid username, 1. Valid email, 2. Valid password
+    this.validate = [
+      [Validators.required, Validators.minLength(6)],
+      [Validators.required, this.validEmail],
+      [Validators.required, Validators.minLength(8)],
     ];
+
     this.vForm = new EventEmitter();
   }
 
@@ -80,30 +82,29 @@ export class FormComponent implements OnInit {
     this.vForm.emit(this.form.value);
   }
 
-  uploadFile(file) {
+  uploadFile(file: object) {
     return new Promise((resolve, reject) => {
       let formData = new FormData();
-      for (let i = 0; i < file.length; i++) {
+      for (let i = 0; i < 1; i++) {
         formData.append("file0", file[i], file[i].name);
       }
 
       this._files.uploadFile(formData).subscribe(
-        (resp: any) => {
-          return resolve(resp.data.fileComplete);
+        (resp: object) => {
+          return resolve(resp["data"].fileComplete);
         },
-        (err) => {
-          console.log(err);
+        () => {
           reject("err");
         }
       );
     });
   }
 
-  onFileChange(e) {
+  onFileChange(e: any) {
     this.file = e.target.files;
   }
 
-  private formatDate(date) {
+  private formatDate(date: object) {
     let formatDate = "";
     formatDate = Object.values(date).join("-");
 
@@ -125,27 +126,30 @@ export class FormComponent implements OnInit {
   }
 
   private formRegister() {
+    const [vUsername, vEmail, vPass] = this.validate;
     this.form = this._fb.group({
-      username: ["", [this.valid[0], this.valid[1]]],
-      email: ["", [this.valid[0], this.valid[2]]],
-      password: ["", [this.valid[0], this.valid[1]]],
-      birthdate: ["", [this.valid[0]]],
+      username: ["", vUsername],
+      email: ["", vEmail],
+      password: ["", vPass],
+      birthdate: ["", [Validators.required]],
       photo: [""],
     });
   }
 
   private formLogin() {
+    const [, vEmail, vPass] = this.validate;
     this.form = this._fb.group({
-      email: ["", [this.valid[0], this.valid[2]]],
-      password: ["", [this.valid[0], this.valid[1]]],
+      email: ["", vEmail],
+      password: ["", vPass],
       remember: [""],
     });
   }
 
   private formEdit() {
+    const [vUsername] = this.validate;
     this.form = this._fb.group({
-      username: [this.user.username, [this.valid[0], this.valid[1]]],
-      birthdate: [this.user.birthdate, this.valid[0]],
+      username: [this.user.username, vUsername],
+      birthdate: [this.user.birthdate, Validators.required],
       photo: [""],
     });
   }
