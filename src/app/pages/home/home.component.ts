@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
     private _alert: AlertsService
   ) {
     this.url = this._g.getUrl();
-    this.profile = new UserModel({ });
+    this.profile = new UserModel({});
     this.lists = [];
   }
 
@@ -51,11 +51,10 @@ export class HomeComponent implements OnInit {
   getLists() {
     this._list.getListsByUser(this.token).subscribe(
       (resp: any) => {
-        console.log(resp);
         this.lists = this.organizeListData(resp.data.response);
       },
       (err) => {
-        console.error(err.error.message);
+        console.warn(err.error.message);
       }
     );
   }

@@ -60,7 +60,7 @@ export class RatingComponent implements OnInit {
     };
 
     this._rating.createNewRating(this.rating).subscribe(
-      (resp) => {
+      () => {
         this.savePhotoList(this.form.value.games, idList);
         this._alert.closeAlert();
         this._alert.success("rating created successfully");

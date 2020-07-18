@@ -1,8 +1,9 @@
-import { UserModel } from './../../models/user.model';
+import { UserModel } from "./../../models/user.model";
 import { Component, OnInit } from "@angular/core";
 import { Page } from "../../interfaces/Page.interface";
 import { Router } from "@angular/router";
 import { AuthService } from "../../services/auth.service";
+import { AlertsService } from "src/app/services/alerts.service";
 
 @Component({
   selector: "app-login",
@@ -17,14 +18,18 @@ export class LoginComponent implements OnInit {
     screenHeigth: 0,
   };
 
-  constructor(private _router: Router, private _auth: AuthService) {
+  constructor(
+    private _router: Router,
+    private _auth: AuthService,
+    private _alert: AlertsService
+  ) {
     this.page = {
       title: "log in",
       action: "Login",
       page: "login",
       rememberUser: false,
     };
-    this.user = new UserModel({ });
+    this.user = new UserModel({});
   }
 
   ngOnInit(): void {
@@ -37,20 +42,18 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  login(vForm) {
+  login(vForm: any) {
     this.user.email = vForm.email;
     this.user.password = vForm.password;
 
     this.page.rememberUser = vForm.remember;
     this._auth.login(this.user).subscribe(
-      (data: any) => {
-        //this._alert.closeAlert();
+      () => {
         this.rememberUsers();
         this._router.navigate(["/home"]);
       },
-      (err: any) => {
-        console.log(err);
-        //this._alert.errorMessage(err,'Failed to authenticate');
+      () => {
+        this._alert.error("Failed to authenticate");
       }
     );
   }

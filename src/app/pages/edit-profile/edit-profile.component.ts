@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Page } from "../../interfaces/Page.interface";
 import { UserModel } from "../../models/user.model";
 import { AuthService } from "src/app/services/auth.service";
-import { FilesService } from "src/app/services/files.service";
+import { AlertsService } from "src/app/services/alerts.service";
 @Component({
   selector: "app-edit-profile",
   templateUrl: "./edit-profile.component.html",
@@ -15,7 +15,8 @@ export class EditProfileComponent implements OnInit {
     screenWidth: 0,
     screenHeigth: 0,
   };
-  constructor(private _auth: AuthService, private _files: FilesService) {
+
+  constructor(private _auth: AuthService, private _alert: AlertsService) {
     this.page = {
       title: "Edit Profile",
       action: "Edit Profile",
@@ -49,9 +50,13 @@ export class EditProfileComponent implements OnInit {
     }
 
     this._auth.updateUser(this.user, idUser).subscribe(
-      (r) => {
-        alert('Ha sido actualizado');
-        this._auth.saveUserInStorage(vForm.username, vForm.photo, vForm.birthdate);
+      () => {
+        this._auth.saveUserInStorage(
+          vForm.username,
+          vForm.photo,
+          vForm.birthdate
+        );
+        this._alert.success("Your data has been updated");
       },
       (e) => console.error(e)
     );

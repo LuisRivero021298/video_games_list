@@ -15,6 +15,7 @@ export class AlertsService {
       confirmButtonText: "Cool",
     });
   }
+
   success(message: string = "") {
     Swal.fire({
       icon: "success",

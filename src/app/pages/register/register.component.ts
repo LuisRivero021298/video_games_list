@@ -3,7 +3,7 @@ import { Page } from "../../interfaces/Page.interface";
 import { Router } from "@angular/router";
 import { AuthService } from "../../services/auth.service";
 import { UserModel } from "../../models/user.model";
-import { FilesService } from "src/app/services/files.service";
+import { AlertsService } from "src/app/services/alerts.service";
 
 @Component({
   selector: "app-register",
@@ -22,7 +22,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private _auth: AuthService,
     private _router: Router,
-    private _files: FilesService
+    private _alert: AlertsService
   ) {
     this.page = {
       title: "register",
@@ -39,19 +39,21 @@ export class RegisterComponent implements OnInit {
   }
 
   async registerNew(vForm: any) {
+    this._alert.loading();
+
     this.user = vForm;
-    //this._alert.loadingMessage('Wait a moment please');
     this._auth.newUser(this.user).subscribe(
-      (data: any) => {
-        //this._alert.closeAlert();
+      () => {
         this.rememberUser = true;
         this.rememberUsers();
+        this._alert.closeAlert();
+        this._alert.success("Your profile has been created");
         this._router.navigate(["/login"]);
       },
-      (err: any) => {
-        //alert('Error: '+err)
-        console.log(err);
-        //this._alert.errorMessage(err, 'Failed to authenticate');
+      () => {
+        this._alert.error(
+          "There was a problem, your profile could not be created"
+        );
       }
     );
   }
