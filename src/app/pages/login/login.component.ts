@@ -1,7 +1,7 @@
+import { UserModel } from './../../models/user.model';
 import { Component, OnInit } from "@angular/core";
 import { Page } from "../../interfaces/Page.interface";
 import { Router } from "@angular/router";
-import { Login } from "../../interfaces/Login.interface";
 import { AuthService } from "../../services/auth.service";
 
 @Component({
@@ -11,7 +11,7 @@ import { AuthService } from "../../services/auth.service";
 })
 export class LoginComponent implements OnInit {
   page: Page;
-  user: Login;
+  user: UserModel;
   screenSize = {
     screenWidth: 0,
     screenHeigth: 0,
@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
       page: "login",
       rememberUser: false,
     };
-    this.user = { email: "", password: "" };
+    this.user = new UserModel({ });
   }
 
   ngOnInit(): void {
@@ -40,8 +40,8 @@ export class LoginComponent implements OnInit {
   login(vForm) {
     this.user.email = vForm.email;
     this.user.password = vForm.password;
-    this.page.rememberUser = vForm.remember;
 
+    this.page.rememberUser = vForm.remember;
     this._auth.login(this.user).subscribe(
       (data: any) => {
         //this._alert.closeAlert();

@@ -26,10 +26,16 @@ export class ListService {
     );
   }
 
-  addList(list) {
+  addList(list: object) {
     let headers = new HttpHeaders().set("Content-Type", "application/json");
     let newList = JSON.stringify(list);
-    return this._http.post(`${this.url}/list`, newList, { headers });
+
+    return this._http.post(`${this.url}/list`, newList, { headers })
+                          .pipe(map(
+                            (resp: any) => {
+                              return resp.data[0];
+                            }
+                          ));
   }
 
   addListImage(nameImage: object) {

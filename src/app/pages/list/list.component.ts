@@ -1,3 +1,4 @@
+import { GlobalService } from './../../services/global.service';
 import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { AlertsService } from "../../services/alerts.service";
@@ -13,34 +14,39 @@ import { RatingService } from "../../services/rating.service";
 export class ListComponent implements OnInit {
   ratings: Array<RatingModel>;
   nameList: string;
-  url = "http://localhost:3000/api";
+  url: string;
   screenSize = {
     screenWidth: 0,
     screenHeight: 0,
   };
 
+  private idList: number;
+
+
   constructor(
+    private _g: GlobalService,
     private _router: Router,
     private _aRoute: ActivatedRoute,
     private _alert: AlertsService,
     private _rating: RatingService,
     private _list: ListService
   ) {
+    this.url = this._g.getUrl();
     this.ratings = [];
   }
 
   ngOnInit(): void {
     this.screenSize.screenWidth = screen.height;
     this.screenSize.screenWidth = screen.width;
+    this.idList = this._aRoute.snapshot.params.id_list;
     this.getNameList();
     this.getAllRatings();
   }
 
   getAllRatings() {
-    let idList = this._aRoute.snapshot.params.id_list;
-    this._rating.getAllRatings(idList).subscribe(
+    this._rating.getAllRatings(this.idList).subscribe(
       (resp: any) => {
-        let data = this.organizeRatingData(resp.data.ratings);
+        const data = this.organizeRatingData(resp.data.ratings);
         this.ratings = data;
       },
       (err) => {
@@ -50,13 +56,11 @@ export class ListComponent implements OnInit {
   }
 
   goToCreateRating() {
-    const idList = this._aRoute.snapshot.params.id_list;
-    this._router.navigateByUrl(`/rating/${idList}`);
+    this._router.navigateByUrl(`/rating/${this.idList}`);
   }
 
   private getNameList() {
-    let id = this._aRoute.snapshot.params.id_list;
-    this._list.getList(id).subscribe(
+    this._list.getList(this.idList).subscribe(
       (nameList: string) => {
         this.nameList = nameList;
       },
@@ -67,8 +71,9 @@ export class ListComponent implements OnInit {
   }
 
   private organizeRatingData(resp: Array<any>) {
-    let data = [];
-    let rating = {};
+    const data = [];
+    const rating = {};
+    
     for (let i = 0; i < resp.length; i++) {
       rating["idRating"] = resp[i].id_rating;
       rating["rate"] = resp[i].rate;

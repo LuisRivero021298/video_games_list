@@ -55,7 +55,7 @@ export class RatingComponent implements OnInit {
     let idList = this._aRoute.snapshot.params.id_list;
     idList = parseInt(idList);
     this.rating = {
-      idList: idList,
+      idList,
       ...this.form.value,
     };
 
@@ -93,7 +93,7 @@ export class RatingComponent implements OnInit {
   }
 
   private savePhotoList(idGame: number, idList: number) {
-    let gameSelected = this.gamesList.find((game) => game.idGame === idGame);
+    const gameSelected = this.gamesList.find((game) => game.idGame === idGame);
     const newImage = {
       photo: gameSelected.photo,
       id_list: idList,
@@ -109,8 +109,8 @@ export class RatingComponent implements OnInit {
   }
 
   private organizeGameData(data: Array<object>) {
-    let newData = [];
-    let game = {};
+    const newData = [];
+    const game = {};
 
     for (let i = 0; i < data.length; i++) {
       game["idGame"] = data[i]["id_game"];
@@ -123,8 +123,8 @@ export class RatingComponent implements OnInit {
   }
 
   private organizeConsoleData(data: Array<object>) {
-    let newData = [];
-    let vConsole = {};
+    const newData = [];
+    const vConsole = {};
 
     for (let i = 0; i < data.length; i++) {
       vConsole["idConsole"] = data[i]["id_console"];

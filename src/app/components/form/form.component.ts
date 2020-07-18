@@ -16,7 +16,7 @@ export class FormComponent implements OnInit {
   @Input() user: UserModel;
   @Input() screenSize;
 
-  @Output() vForm: EventEmitter<any>;
+  @Output() vForm: EventEmitter<object>;
 
   form: FormGroup;
   valid: Array<Validators> = [];

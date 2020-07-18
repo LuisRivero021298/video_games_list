@@ -42,17 +42,16 @@ export class EditProfileComponent implements OnInit {
   async editUser(vForm: any) {
     const idUser = localStorage.getItem("token");
 
-    let data = vForm;
-    this.user = data;
+    this.user = vForm;
 
     if (this.user.photo === "") {
       this.user.photo = localStorage.getItem("photo");
     }
-    console.log(data);
 
     this._auth.updateUser(this.user, idUser).subscribe(
       (r) => {
-        this._auth.saveUserInStorage(data.username, data.photo, data.birthdate);
+        alert('Ha sido actualizado');
+        this._auth.saveUserInStorage(vForm.username, vForm.photo, vForm.birthdate);
       },
       (e) => console.error(e)
     );

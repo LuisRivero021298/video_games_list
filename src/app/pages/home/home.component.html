@@ -30,27 +30,27 @@
     <hr class="my-4">
 	</div> <!-- end home-header-->
 
-	<div
+	<section
     class="home-lists" 
     *ngIf="lists.length !== 0; else noList"
   >
-    <div 
+    <article 
       class="list" 
       *ngFor="let list of lists"
     >
       <div class="cover-content">
-      <img
-        *ngIf="list.photoList !== null"
-        class="img cover-img" 
-        [src]="url+'/image/'+list.photoList" 
-        [alt]="list.nameList"
-      />
-      <img
-        *ngIf="list.photoList === null"
-        class="img cover-img"
-        src="assets/images/no-image.png"
-        alt="no-imagen"
-      />
+        <img
+          *ngIf="list.photoList !== null"
+          class="img cover-img" 
+          [src]="url+'/image/'+list.photoList" 
+          [alt]="list.nameList"
+        />
+        <img
+          *ngIf="list.photoList === null"
+          class="img cover-img"
+          src="assets/images/no-image.png"
+          alt="no-imagen"
+        />
       </div>
       <div class="cover-shadow">
         <a 
@@ -62,8 +62,9 @@
           <h4>{{ list.nameList }} </h4>
         </div>
       </div>
-    </div>
-  </div> <!-- end home-lists-->
+    </article>
+  </section> <!-- end home-lists-->
+
   <ng-template #noList>
     <div class="home-lists">
       <h4 class="center">Create a list</h4> 

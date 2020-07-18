@@ -19,7 +19,7 @@ export class AuthService {
   }
 
   getUser(idUser: string): Observable<any> {
-    let headers = new HttpHeaders().set("x-access-token", idUser);
+    const headers = new HttpHeaders().set("x-access-token", idUser);
     return this._http
       .get<any>(`${this.url}/profile`, { headers })
       .pipe(
@@ -55,14 +55,17 @@ export class AuthService {
     return this._http.put(`${this.url}/update`, user, { headers });
   }
 
-  login(userLogin: Login): Observable<any> {
-    let log = JSON.stringify(userLogin);
-    let headers = new HttpHeaders().set("Content-Type", "application/json");
+  login(userLogin: UserModel): Observable<any> {
+    const login = {
+      email: userLogin.email,
+      password: userLogin.password
+    }
+    const log = JSON.stringify(login);
+    const headers = new HttpHeaders().set("Content-Type", "application/json");
     return this._http
       .post<any>(`${this.url}/signin`, log, { headers })
       .pipe(
         map((resp) => {
-          console.log(resp.data);
           this.saveToken(resp.data.token, resp.data.expireIn);
           return resp;
         })
@@ -78,7 +81,7 @@ export class AuthService {
   }
 
   readToken() {
-    let tokenStorage = localStorage.getItem("token");
+    const tokenStorage = localStorage.getItem("token");
     return tokenStorage
       ? (this.userToken = tokenStorage)
       : (this.userToken = null);
@@ -113,7 +116,7 @@ export class AuthService {
   }
 
   private tokenExpireIn(expireIn: number) {
-    let today = new Date();
+    const today = new Date();
     today.setSeconds(expireIn);
     localStorage.setItem("expireIn", today.getTime().toString());
   }

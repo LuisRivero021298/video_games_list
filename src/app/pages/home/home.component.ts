@@ -16,8 +16,8 @@ import { GlobalService } from "src/app/services/global.service";
 export class HomeComponent implements OnInit {
   profile: UserModel;
   lists: Array<ListModel>;
-  errorlist: string;
   url: string;
+  token: string;
 
   constructor(
     private _g: GlobalService,
@@ -27,24 +27,18 @@ export class HomeComponent implements OnInit {
     private _alert: AlertsService
   ) {
     this.url = this._g.getUrl();
-    this.profile = new UserModel({
-      username: "",
-      email: "",
-      photo: "",
-      birthdate: "",
-    });
-
+    this.profile = new UserModel({ });
     this.lists = [];
   }
 
   ngOnInit(): void {
+    this.token = this._auth.readToken();
     this.getProfile();
     this.getLists();
   }
 
   getProfile() {
-    const token = this._auth.readToken();
-    this._auth.getUser(token).subscribe(
+    this._auth.getUser(this.token).subscribe(
       (resp) => {
         this.profile = resp;
       },
@@ -55,30 +49,30 @@ export class HomeComponent implements OnInit {
   }
 
   getLists() {
-    const token = this._auth.readToken();
-    this._list.getListsByUser(token).subscribe(
+    this._list.getListsByUser(this.token).subscribe(
       (resp: any) => {
         console.log(resp);
         this.lists = this.organizeListData(resp.data.response);
       },
       (err) => {
-        this.errorlist = err.error.message;
+        console.error(err.error.message);
       }
     );
   }
 
   createLists() {
-    const token = this._auth.readToken();
     this._alert
       .create()
       .then((value: string) => {
-        let newList = {
+        const newList = {
           name_list: value,
-          id_user: token,
+          id_user: this.token,
         };
+
         this._list.addList(newList).subscribe(
           (resp: any) => {
-            this._router.navigateByUrl(`/list/${resp.data[0].id}`);
+            const { id } = resp;
+            this._router.navigateByUrl(`/list/${id}`);
           },
           (err) => console.error(err)
         );
@@ -91,7 +85,7 @@ export class HomeComponent implements OnInit {
   }
 
   private organizeListData(resp: Array<any>) {
-    let data = [];
+    const data = [];
 
     for (let i = 0; i < resp.length; i++) {
       data.push(

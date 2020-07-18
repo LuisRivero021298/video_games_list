@@ -11,7 +11,7 @@ export class RatingService {
     this.url = this._g.getUrl();
   }
 
-  getAllRatings(idList: string) {
+  getAllRatings(idList: number) {
     return this._http.get(`${this.url}/rating/${idList}`);
   }
 

@@ -1,9 +1,11 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
+//guards
 import { AuthGuard } from "./guards/auth.guard";
 import { NoAuthGuard } from "./guards/noAuth.guard";
 
+//routes
 import { HomeComponent } from "./pages/home/home.component";
 import { ListComponent } from "./pages/list/list.component";
 import { GameComponent } from "./pages/game/game.component";
