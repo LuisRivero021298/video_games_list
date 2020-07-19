@@ -30,16 +30,14 @@ export class ListService {
     let headers = new HttpHeaders().set("Content-Type", "application/json");
     let newList = JSON.stringify(list);
 
-    return this._http.post(`${this.url}/list`, newList, { headers })
-                          .pipe(map(
-                            (resp: any) => {
-                              return resp.data[0];
-                            }
-                          ));
+    return this._http.post(`${this.url}/list`, newList, { headers }).pipe(
+      map((resp: any) => {
+        return resp.data[0];
+      })
+    );
   }
 
   addListImage(nameImage: object) {
-    console.log(nameImage);
     let headers = new HttpHeaders().set("Content-Type", "application/json");
     const newImage = JSON.stringify(nameImage);
     return this._http.post(`${this.url}/list/image`, newImage, { headers });

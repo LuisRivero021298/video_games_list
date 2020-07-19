@@ -32,9 +32,14 @@
         />
       </div>
       <div class="cover-shadow">
-        <a class="link-game" routerLink="/game-detail"></a>
+        
         <div class="name-game">
-          <h4>{{ rating.nameGame }}-{{ rating.rate }}</h4>
+          <h4>{{ rating.nameGame }}</h4>
+          <span class="trash" (click)="deleteRating(rating.idRating)">
+            <img src="assets/icons/delete.svg" alt="trash" />
+          </span>
+
+          <span class="rate">Rating: {{ rating.rate }}</span>
         </div>
       </div>
     </div>
@@ -47,4 +52,4 @@
   </ng-template>
 
   <app-btn-add (click)="goToCreateRating()"></app-btn-add>
-  </div>
+</div>

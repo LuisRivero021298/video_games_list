@@ -19,4 +19,8 @@ export class RatingService {
     let headers = new HttpHeaders().set("Content-Type", "application/json");
     return this._http.post(`${this.url}/rating`, data, { headers });
   }
+
+  deleteRating(id: number) {
+    return this._http.delete(`${this.url}/rating/${id}`);
+  }
 }

@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { UserModel } from "../models/user.model";
-import { Login } from "../interfaces/Login.interface";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { GlobalService } from "./global.service";
@@ -58,8 +57,8 @@ export class AuthService {
   login(userLogin: UserModel): Observable<any> {
     const login = {
       email: userLogin.email,
-      password: userLogin.password
-    }
+      password: userLogin.password,
+    };
     const log = JSON.stringify(login);
     const headers = new HttpHeaders().set("Content-Type", "application/json");
     return this._http
