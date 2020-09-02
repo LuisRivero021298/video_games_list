@@ -623,6 +623,9 @@ footer{
   .list-body .game-body {
     min-height: 300px; 
   }
+  .list-body .game-body .name-game{
+    grid-template-rows: 35px auto;
+  }
 
 }
 
