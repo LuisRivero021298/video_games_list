@@ -90,7 +90,6 @@ export class ListComponent implements OnInit {
         great = this.ratings[i].idRating;
       }
     }
-
     return great;
   }
 

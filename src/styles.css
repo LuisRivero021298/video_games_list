@@ -188,7 +188,7 @@ body {
 	width: 30px;
 }
 .brd{
-	text-align: right;
+	text-align: center;
 }
 .navbar-brand{
 	margin: 0 !important;
@@ -383,6 +383,9 @@ footer{
 .material-icons.md-light { fill: var(--main-color-text); }
 .material-icons.md-light.md-inactive { fill: rgba(255, 255, 255, 0.3); }
 
+
+
+
 /* RESPONSIVE */
 
 @media only screen and (min-width: 360px) {
@@ -391,6 +394,9 @@ footer{
 	}
 	.main{
 		min-height: 665px;
+	}
+	.brd{
+		text-align: right;
 	}
 	.btn-session{
 		height: 48px;
